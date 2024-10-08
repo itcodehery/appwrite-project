@@ -1,4 +1,8 @@
 /* General section styles */
+.body {
+  color: white;
+}
+
 .membership-section {
   text-align: center;
   padding: 20px;
@@ -25,7 +29,7 @@
 
 .card {
   background: rgb(39, 37, 37);
-  color: white;
+  color: white; /* Ensures all text inside the card is white */
   border-radius: 15px;
   padding: 20px;
   position: relative;
@@ -56,16 +60,29 @@
   font-size: 1.3rem;
   font-weight: bold;
   margin: 10px 0;
+  color: white; /* Explicitly set to white */
+}
+
+/* Specific styles to ensure all text is white */
+.static-content h3 {
+  color: white; /* Ensure the heading is white */
+}
+
+.static-content p,
+.dynamic-content p {
+  color: white; /* Ensure all paragraphs are white */
 }
 
 /* Bullet list styling inside the cards */
 ul {
   list-style: none;
   padding: 0;
+  color: white; /* Ensure bullet list text is white */
 }
 
 ul li {
   margin: 10px 0;
+  color: white; /* Ensure list item text is white */
 }
 
 /* Diagonal background animation */
@@ -94,11 +111,10 @@ ul li {
   margin-top: 20px;
   padding: 12px 25px;
   background-color: red;
-  color: white;
+  color: white; /* Ensure button text is white */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-

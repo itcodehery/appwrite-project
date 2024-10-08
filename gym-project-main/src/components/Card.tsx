@@ -43,8 +43,8 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>1 Month Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
-              <p className="replacement-text">Exclusive Offer!</p> {/* Text that appears on hover */}
+              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <p className="replacement-text">Exclusive Offer!</p>
             </div>
             <div className="dynamic-content">
               <p className="price">Price: ₹700</p>
@@ -70,8 +70,8 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>2 Month Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
-              <p className="replacement-text">Best Value!</p> {/* Text that appears on hover */}
+              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <p className="replacement-text">Best Value!</p>
             </div>
             <div className="dynamic-content">
               <p className="price">Price: ₹1200</p>
@@ -97,8 +97,8 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>1 Year Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
-              <p className="replacement-text">Ultimate Plan!</p> {/* Text that appears on hover */}
+              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <p className="replacement-text">Ultimate Plan!</p>
             </div>
             <div className="dynamic-content">
               <p className="price">Price: ₹5000</p>
