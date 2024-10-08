@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Client } from "appwrite";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
