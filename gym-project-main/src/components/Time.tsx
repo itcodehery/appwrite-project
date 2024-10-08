@@ -1,6 +1,7 @@
 import { Button, Box, Typography, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import hiImage from '../assets/images/hi2.webp'; // Correct image path
+import { Link } from 'react-router-dom';
 
 const StrengthProgram = () => {
   return (
@@ -91,21 +92,22 @@ const StrengthProgram = () => {
           </ListItem>
         </List>
         <Button
-          variant="contained"
-         
-          sx={{
-            marginTop: '1rem',
-            backgroundColor: 'red',
-            '&:hover': {
-              backgroundColor: '#333',
-              transform: 'scale(1.05)',
-              boxShadow: '0 0 15px 5px rgba(0, 0, 0, 0.6)',
-              transition: 'all 0.3s ease',
-            },
-          }}
-        >
-          Book Your Slot Now
-        </Button>
+  variant="contained"
+  component={Link}
+  to="/timeslot"
+  sx={{
+    marginTop: '1rem',
+    backgroundColor: 'red',
+    '&:hover': {
+      backgroundColor: '#333',
+      transform: 'scale(1.05)',
+      boxShadow: '0 0 15px 5px rgba(0, 0, 0, 0.6)',
+      transition: 'all 0.3s ease',
+    },
+  }}
+>
+  Book Your Slot Now
+</Button>
       </Box>
 
       {/* Right Side Image */}

@@ -79,7 +79,7 @@ const Signup: React.FC = () => {
         </form>
 
         <p>Already have an account? <Link to="/login">Log in</Link></p>
-        <Link to="/timeslot">Book a Time Slot</Link>
+       
       </motion.div>
 
       {/* Right side where you can add your own image */}
