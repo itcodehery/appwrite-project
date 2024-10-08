@@ -3,6 +3,8 @@ import { Client, Account } from 'appwrite'; // Import Client and Account from Ap
 import { motion } from 'framer-motion';
 import './Login.css'; // Import your styles
 import Image from '../assets/images/white.png'; // Ensure this path is correct
+import { Link } from 'react-router-dom';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -56,7 +58,8 @@ const Login: React.FC = () => {
           <button type="submit" className="login-btn">Log In</button>
         </form>
         <div className="i">
-          <p>Don't have an account? <a href="#">Sign up for free</a></p>
+          <p>Don't have an account?<Link to="/Signup"> <a href="#">Sign up for free</a> </Link></p>
+    
         </div>
       </motion.div>
 
