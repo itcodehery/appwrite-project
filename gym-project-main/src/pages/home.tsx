@@ -5,6 +5,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import './HomePage.css';
 import Card from '../components/Card'; // Import the Card component
 import Time from '../components/Time';
+import Foter from '../components/Foter';
 
 
 const HomePage: React.FC = () => {
@@ -97,7 +98,10 @@ const HomePage: React.FC = () => {
         <Card /> {/* Add the Card component here */}
        
       </section>
-      
+      <section >
+        <Foter /> {/* Add the Card component here */}
+       
+      </section>
 
     </>
   );
