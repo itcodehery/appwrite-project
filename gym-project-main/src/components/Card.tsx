@@ -1,25 +1,53 @@
 import React from 'react';
-import './Cardstyle.css'
-import { motion } from 'framer-motion';
+import './Cardstyle.css';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import logo from '../assets/images/white-logo.png'; // Ensure this path is correct
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 1, type: 'spring', stiffness: 100 } },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 
 const Card: React.FC = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true }); // `once` ensures animation happens only once
+
   return (
-    <div className="membership-section">
-      {/* Heading for all cards */}
+    <motion.div
+      className="membership-section"
+      ref={sectionRef}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'} // Triggers animation only when in view
+    >
       <h1 className="membership-heading">Choose Your Membership Plan</h1>
 
       <div className="card-wrapper">
         {/* 1 Month Membership */}
-        <div className="card-container">
+        <motion.div className="card-container" variants={cardVariants}>
           <motion.div
-            initial={{ opacity: 0, y: 100 }} // Animation
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            whileHover={{ scale: 1.05, rotateY: 10 }}
+            className="card"
           >
-            <div className="card">
+            <div className="diagonal-background"></div>
+            <div className="static-content">
               <h3>1 Month Membership</h3>
-              <p className='price'>Price: ₹700</p>
-              <br />
+              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
+              <p className="replacement-text">Exclusive Offer!</p> {/* Text that appears on hover */}
+            </div>
+            <div className="dynamic-content">
+              <p className="price">Price: ₹700</p>
               <p>
                 Enjoy a 1-month subscription with access to all premium features including:
                 <ul>
@@ -28,27 +56,25 @@ const Card: React.FC = () => {
                   <li>Discounts on future purchases</li>
                 </ul>
               </p>
-              <div className="layers">
-                {[...Array(10)].map((_, i) => (
-                  <div className="layer" key={i}></div>
-                ))}
-              </div>
               <button className="buy-button">Buy Now</button>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* 2 Month Membership */}
-        <div className="card-container">
+        <motion.div className="card-container" variants={cardVariants}>
           <motion.div
-            initial={{ opacity: 0, y: -100 }} // Animation
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            whileHover={{ scale: 1.05, rotateY: 10 }}
+            className="card"
           >
-            <div className="card">
+            <div className="diagonal-background"></div>
+            <div className="static-content">
               <h3>2 Month Membership</h3>
-              <p className='price'>Price: ₹1200</p>
-              <br />
+              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
+              <p className="replacement-text">Best Value!</p> {/* Text that appears on hover */}
+            </div>
+            <div className="dynamic-content">
+              <p className="price">Price: ₹1200</p>
               <p>
                 Get a 2-month subscription with additional perks:
                 <ul>
@@ -57,46 +83,38 @@ const Card: React.FC = () => {
                   <li>10% off on all purchases during membership</li>
                 </ul>
               </p>
-              <div className="layers">
-                {[...Array(10)].map((_, i) => (
-                  <div className="layer" key={i}></div>
-                ))}
-              </div>
               <button className="buy-button">Buy Now</button>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* 1 Year Membership */}
-        <div className="card-container">
+        <motion.div className="card-container" variants={cardVariants}>
           <motion.div
-            initial={{ opacity: 0, y: 100 }} // Animation
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            whileHover={{ scale: 1.05, rotateY: 10 }}
+            className="card"
           >
-            <div className="card">
+            <div className="diagonal-background"></div>
+            <div className="static-content">
               <h3>1 Year Membership</h3>
-              <p className='price'>Price: ₹5000</p>
-              <br />
+              <img src={logo} alt="Membership Logo" className="membership-logo" /> {/* Image */}
+              <p className="replacement-text">Ultimate Plan!</p> {/* Text that appears on hover */}
+            </div>
+            <div className="dynamic-content">
+              <p className="price">Price: ₹5000</p>
               <p>
                 Enjoy our premium yearly plan with full benefits:
                 <ul>
                   <li>All benefits from the 1- and 2-month plans</li>
                   <li>Exclusive one-on-one sessions with experts</li>
-                  <li>25% discount on every purchase during the membership</li>
                 </ul>
               </p>
-              <div className="layers">
-                {[...Array(10)].map((_, i) => (
-                  <div className="layer" key={i}></div>
-                ))}
-              </div>
               <button className="buy-button">Buy Now</button>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

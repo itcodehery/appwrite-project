@@ -1,144 +1,104 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Raleway, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #000000;
-}
-
-.card-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px; /* This can be adjusted based on your needs */
-  gap: 90px; /* Adds space between the cards */
-}
-
-.card-container {
-  perspective: 50em;
-  flex: 1; /* Ensures each card takes an equal amount of space */
-  position: relative; /* Added to position the border */
-  border: 5px solid rgba(255, 241, 241, 0.901); /* Set the border color and thickness */
-  border-radius: 10px; /* Optional: rounded corners for the border */
-  padding: 5px; /* Optional: padding inside the border */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
-}
-
-
-.card {
-  position: relative;
-  width: 88%;
-  height: 400px;
-  padding: 3em;
-  color: #fff;
-  transform: rotateY(30deg) rotateX(15deg);
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-  margin-left: 23px;
-  
- transition: transform 0.5s;
-}
-
-.card:hover {
-  transform: rotateY(-10deg) rotateX(0deg);
-  background-color: rgba(255, 255, 255, 0.3); /* Adjust hover transparency */
-  width: 100%;
-  height: 400px;
-  margin-left: 0px;
-  transition: transform 0.5s;
-}
-
-.layers {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  z-index: -1;
-}
-
-.layer {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 1em;
-  background-image: var(--bi);
-  transform: translateZ(var(--tz));
-  box-shadow: 0 0 0.5em #000d inset;
-}
-
-.layer:nth-child(1) {
-  --tz: 0px;
-}
-.layer:nth-child(2) {
-  --tz: -4px;
-}
-.layer:nth-child(3) {
-  --tz: -8px;
-}
-.layer:nth-child(4) {
-  --tz: -12px;
-}
-.layer:nth-child(5) {
-  --tz: -16px;
-}
-.layer:nth-child(6) {
-  --tz: -20px;
-}
-.layer:nth-child(7) {
-  --tz: -24px;
-}
-.layer:nth-child(8) {
-  --tz: -28px;
-}
-.layer:nth-child(9) {
-  --tz: -32px;
-}
-.layer:nth-child(10) {
-  --tz: -36px;
-  box-shadow: 0 0 0.5em #000d inset, 0 0 5px #000;
-}
-
-/* Button Styles */
-.buy-button {
-  margin-top: 20px; /* Space between the text and button */
-  padding: 10px 20px; /* Button padding */
-  font-size: 16px; /* Font size */
-  color: #9c1616; /* Text color */
-  background-color: #141414; /* Background color */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Change cursor on hover */
-  transition: background-color 0.3s; /* Transition for hover effect */
-}
-
-.buy-button:hover {
-  background-color:rgba(255, 255, 255, 0.2); /* Darker color on hover */
-}
-
-.price{
-  font-size: 20px;
+/* General section styles */
+.membership-section {
+  text-align: center;
+  padding: 20px;
+  color: white;
 }
 
 .membership-heading {
-  text-align: center;
-  color: white;
-  margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
-.membership-section {
-  padding: 20px;
+/* Wrapper for cards */
+.card-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
 }
+
+.card-container {
+  width: 300px;
+  perspective: 1000px; /* For 3D hover effect */
+}
+
+.card {
+  background: rgb(39, 37, 37);
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d; /* Enable 3D transform */
+}
+
+.card:hover {
+  transform: rotateY(10deg); /* 3D Tilt effect on hover */
+}
+
+/* Card content animation */
+.card-content {
+  opacity: 0;
+  transform: translateY(20px); /* Initially below the card */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth entry */
+}
+
+.card:hover .card-content {
+  opacity: 1;
+  transform: translateY(0); /* Slides content into place */
+}
+
+/* Price section styling */
+.price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Bullet list styling inside the cards */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* Diagonal background animation */
+.diagonal-background {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  transform: rotate(45deg);
+  animation: rotate-bg 10s linear infinite; /* Smooth rotating background */
+}
+
+@keyframes rotate-bg {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Buy button styling */
+.buy-button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
