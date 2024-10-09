@@ -28,6 +28,11 @@ p {
     color: #555;
 }
 
+.error-message {
+    color: red;
+    margin: 10px 0;
+}
+
 .google-signin-btn {
     display: flex;
     align-items: center;
