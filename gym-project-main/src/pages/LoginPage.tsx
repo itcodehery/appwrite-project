@@ -40,7 +40,7 @@ const Login: React.FC = () => {
       await account.createEmailPasswordSession(email, password);
       const user = await account.get();
       setLoggedInUser(user);
-      navigate("/HomePage"); // Navigate to HomePage on successful login
+      navigate("/userhome"); // Navigate to HomePage on successful login
     } catch (error) {
       setErrorMessage("Login failed. Please check your credentials.");
     } finally {

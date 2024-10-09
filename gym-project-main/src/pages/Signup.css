@@ -6,6 +6,10 @@
     font-family: 'Arial', sans-serif;
 }
 
+.error-message {
+    color: red;
+}
+
 /* Left side (signup form) */
 .signup-container {
     flex: 1;
