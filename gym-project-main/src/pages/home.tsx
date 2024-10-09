@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import './HomePage.css';
-import Card from '../components/Card'; // Import the Card component
-import Time from '../components/Time';
-import Foter from '../components/Foter';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import "./HomePage.css";
+import Card from "../components/Card"; // Import the Card component
+import Time from "../components/Time";
+import Foter from "../components/Foter";
 
 const HomePage: React.FC = () => {
   return (
@@ -20,7 +19,7 @@ const HomePage: React.FC = () => {
             transition={{ duration: 1 }}
           >
             <Typewriter
-              words={['Spot Fit']}
+              words={["SpotFit"]}
               loop={1}
               cursor
               cursorStyle="|"
@@ -65,7 +64,7 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1 }}
           >
-            <Link to="/contact">Contact</Link>
+            <Link to="/userhome">T: UserHome</Link>
           </motion.div>
         </nav>
         <motion.div
@@ -75,34 +74,35 @@ const HomePage: React.FC = () => {
           transition={{ duration: 0.5, delay: 1.3 }}
         >
           <Link to="/cart" className="cart-icon">
-            <span role="img" aria-label="cart">🛒</span>
+            <span role="img" aria-label="cart">
+              🛒
+            </span>
           </Link>
-          <Link to="/login" className="login-btn">Log In</Link>
-          <Link to="/signup" className="signup-btn">Sign Up</Link>
+          <Link to="/login" className="login-btn">
+            Log In
+          </Link>
+          <Link to="/signup" className="signup-btn">
+            Sign Up
+          </Link>
         </motion.div>
       </header>
 
       {/* Hero Section with animated image */}
       <section className="hi">
         {/* Add content or image for your hero section here */}
-      </section >
-
-     <section className="time-slot-booking">
-      <Time />
       </section>
 
-      
+      <section className="time-slot-booking">
+        <Time />
+      </section>
 
       {/* Membership Section with Card and Timeslot */}
       <section className="membership-section">
         <Card /> {/* Add the Card component here */}
-       
       </section>
-      <section >
+      <section>
         <Foter /> {/* Add the Card component here */}
-       
       </section>
-
     </>
   );
 };
