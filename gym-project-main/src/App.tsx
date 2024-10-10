@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import TimeSlotBooking from "./components/TimeSlotBooking";
 import HomePage from "./pages/home";
 import UserHomePage from "./pages/UserHomePage";
+import Admindash from "./pages/admindash"
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,8 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/timeslot" element={<TimeSlotBooking />} />
+        <Route path="/admindash" element={<Admindash />} />
+        
       </Routes>
     </Router>
   );
