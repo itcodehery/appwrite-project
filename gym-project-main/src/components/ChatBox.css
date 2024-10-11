@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+  
+   
+    color: white;
+  }
+  
+  .spot-container {
+    width: 90%;
+    border-radius: 16px;
+    border: rgba(255, 255, 255, 0.05) 2px solid;
+    background-color: #1F1F1F;
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .spot-header {
+    text-align: center;
+  }
+  
+  .spot-header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .spot-header p {
+    color: #aaa;
+    margin: 5px 0;
+  }
+  
+  .spot-chat {
+    margin-top: 20px;
+  }
+  
+  .user-query {
+    text-align: right;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .spot-response {
+    background-color: #400000;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .spot-response h2, .spot-response h3 {
+    margin: 10px 0;
+  }
+  
+  .spot-response p, .spot-response ul {
+    color: #fff;
+  }
+  
+  .spot-input {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .spot-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .spot-input button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  

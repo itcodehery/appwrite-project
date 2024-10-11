@@ -6,13 +6,13 @@ import "./HomePage.css";
 import Card from "../components/Card"; // Import the Card component
 import Time from "../components/Time";
 import Foter from "../components/Foter";
+import AppBar from "../components/AppBar";
 
 const HomePage: React.FC = () => {
   return (
     <>
-      <header className="navbar">
-        <div className="logo">
-          {/* Typewriter effect for the logo */}
+      {/* <header className="navbar"> */}
+      {/* <div className="logo">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -28,9 +28,9 @@ const HomePage: React.FC = () => {
               delaySpeed={1000}
             />
           </motion.h1>
-        </div>
-        <nav className="nav-links">
-          {/* Animated navigation links */}
+        </div> */}
+      {/* <nav className="nav-links">
+         
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -66,8 +66,8 @@ const HomePage: React.FC = () => {
           >
             <Link to="/userhome">T: UserHome</Link>
           </motion.div>
-        </nav>
-        <motion.div
+        </nav> */}
+      {/* <motion.div
           className="nav-actions"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -84,8 +84,9 @@ const HomePage: React.FC = () => {
           <Link to="/signup" className="signup-btn">
             Sign Up
           </Link>
-        </motion.div>
-      </header>
+        </motion.div> */}
+      {/* </header> */}
+      <AppBar is_for_user={false} />
 
       {/* Hero Section with animated image */}
       <section className="hi">

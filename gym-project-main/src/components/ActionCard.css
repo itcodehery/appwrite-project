@@ -1,0 +1,31 @@
+.action-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    border-radius: 1rem;
+    background-color: #1F1F1F;
+    border: rgba(255, 255, 255, 0.05) 2px solid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.action-card:hover {
+    background-color: #2F2F2F;
+    
+}
+
+h2 {
+    color: white;
+    margin: 10px 0px;
+    cursor: pointer;
+}
+
+p {
+    color: grey;
+    margin: 0;
+    cursor: pointer;
+}
