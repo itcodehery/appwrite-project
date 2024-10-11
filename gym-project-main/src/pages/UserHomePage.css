@@ -1,0 +1,104 @@
+.user-home-wrapper {
+/*    
+    height: 100vh; */
+    padding: 10px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    color: #FF8373;
+    margin: 10px 0px; 
+}
+
+.user-home-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    /* grid-gap: 0px; */
+}
+
+.left-content {
+    display: block;
+}
+
+.your-gym {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 16px 16px;
+    background: linear-gradient(120deg, rgba(53,28,28,1) 0%, rgba(26,26,26,1) 100%);
+
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: left;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.row-spread {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+    margin: 20px 0px 0px 0px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0px 10px;
+    height: 200px;
+}
+
+/* Buttons */
+
+.main-but-pri {
+    background-color: #FF8373;
+    color: #6B1919;
+    font-weight: 600;
+    padding: 12px 12px;
+    border: rgba(0, 0, 0, 0.3) 2px solid;
+    border-radius: 12px;
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.main-but-sec {
+    background-color: #1E1E1E;
+    color: #999999;
+    padding: 12px 12px;
+    font-weight: 600;
+    border: rgba(0, 0, 0, 0.3) 2px solid;
+    border-radius: 12px;
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.main-but-pri:hover {
+    background-color: #ff988a;
+    color: #6B1919;
+}
+
+.main-but-sec:hover {
+    background-color: #2F2F2F;
+    color: #999999;
+}
