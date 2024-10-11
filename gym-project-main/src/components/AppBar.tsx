@@ -50,7 +50,7 @@ const AppBar = ({ is_for_user }: AppBarType) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
           >
-            <Link to="/trainers">Trainers</Link>
+            <Link to="/admindash">T: Admin</Link>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -50 }}

@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./UserHomePage.css";
 import AppBar from "../components/AppBar";
 import ActionCard from "../components/ActionCard";
 import ChatBox from "../components/ChatBox";
-
-interface TimeSlot {
-  id: number;
-  time: string;
-  available: boolean;
-}
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
+import { Client, Databases, Query } from "appwrite";
 
 const UserHomePage: React.FC = () => {
-  const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
+  const navigate = useNavigate(); // Initialize useNavigate for routing
+
+  const checkSession = async () => {
+    // This helps if the user directly enters the url of the home page.
+    // if they are not signed in, this checks that and redirects to the
+    try {
+      // Retrieve session from cookies
+      const sessionId = Cookies.get("session");
+
+      if (sessionId) {
+        // Get the current session data from Appwrite
+        const session = await account.getSession(sessionId);
+
+        console.log("Session valid:", session);
+      } else {
+        console.log("No active session found");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Session retrieval failed:", error);
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
-    // Fetch time slots from an API or database
-    const fetchTimeSlots = async () => {
-      // Replace with your actual API call
-      const response = await fetch("/api/timeslots");
-      const data = await response.json();
-      setTimeSlots(data);
-    };
-
-    fetchTimeSlots();
+    // Check for existing session when the component mounts
+    checkSession();
   }, []);
 
   return (
     <div className="user-home-wrapper">
       <AppBar is_for_user={true} />
-      {/* <h1>User Dashboard</h1>
-      <h2>Available Gym Time Slots</h2>
-      <ul>
-        {timeSlots.map((slot) => (
-          <li key={slot.id}>
-            {slot.time} - {slot.available ? "Available" : "Booked"}
-          </li>
-        ))}
-      </ul> */}
       <div className="user-home-row">
         <div className="left-content">
           <div className="your-gym">
