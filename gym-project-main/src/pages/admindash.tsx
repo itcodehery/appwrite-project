@@ -4,7 +4,6 @@ import {
   TextField,
   Checkbox,
   FormControlLabel,
-  
   Typography,
   Container,
   Box,
@@ -30,7 +29,38 @@ const AddGym: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your submit logic here
+
+    try {
+      // Replace 'YOUR_DATABASE_ID' and 'YOUR_COLLECTION_ID' with your actual database and collection IDs
+      const response = await databases.createDocument(
+        'YOUR_DATABASE_ID',
+        'YOUR_COLLECTION_ID',
+        'unique()',
+        {
+          gymName,
+          isOpen,
+          address,
+          city,
+          openingTime,
+          closingTime,
+          managerName,
+          managerEmail,
+        }
+      );
+      console.log('Gym added successfully:', response);
+      // Optionally reset the form fields or show a success message
+      setGymName('');
+      setIsOpen(false);
+      setAddress('');
+      setCity('');
+      setOpeningTime('');
+      setClosingTime('');
+      setManagerName('');
+      setManagerEmail('');
+    } catch (error) {
+      console.error('Error adding gym:', error);
+      // Optionally show an error message
+    }
   };
 
   // Animation variants
@@ -51,7 +81,7 @@ const AddGym: React.FC = () => {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom sx={{ color: '#fff' }}>
-          GYM
+          ADMIN PANEL
         </Typography>
         <form onSubmit={handleSubmit}>
           {[
@@ -92,9 +122,8 @@ const AddGym: React.FC = () => {
                     "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#f50057",
                     },
-                    // Add styles for the text type specifically
                     '& input': {
-                     color:'white',
+                      color: 'white',
                       padding: '14px', // Padding
                     },
                   },
