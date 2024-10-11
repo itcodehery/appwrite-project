@@ -1,7 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
 import "./HomePage.css";
 import Card from "../components/Card"; // Import the Card component
 import Time from "../components/Time";
