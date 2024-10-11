@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Login.css"; // Import your styles
 import Image from "../assets/images/white.png"; // Ensure this path is correct
 import { Models } from "appwrite"; // Ensure this import is correct
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
+import Cookies from "js-cookie";
 
 const Login: React.FC = () => {
   const [loggedInUser, setLoggedInUser] =
@@ -47,6 +48,31 @@ const Login: React.FC = () => {
       setIsSubmitting(false); // Reset form submission state
     }
   };
+
+  const checkSession = async () => {
+    try {
+      // Retrieve session from cookies
+      const sessionId = Cookies.get("session");
+
+      if (sessionId) {
+        // Get the current session data from Appwrite
+        const session = await account.getSession(sessionId);
+
+        console.log("Session valid:", session);
+        // Navigate to home
+        navigate("/userhome");
+      } else {
+        console.log("No active session found");
+      }
+    } catch (error) {
+      console.error("Session retrieval failed:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Check for existing session when the component mounts
+    checkSession();
+  }, []);
 
   return (
     <div className="login-wrapper">

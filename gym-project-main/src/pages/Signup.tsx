@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Signup.css"; // Import your styles
 import Image from "../assets/images/white.png"; // Ensure this path is correct
 import { account, ID } from "../helpers/appwrite"; // Import Appwrite account and ID
+import Cookies from "js-cookie"; // Import Cookies for setting user data
 
 const Signup: React.FC = () => {
   const [name, setName] = useState("");
@@ -35,6 +36,14 @@ const Signup: React.FC = () => {
 
       // After successful signup, log the user in and navigate to HomePage
       await account.createEmailPasswordSession(email, password);
+
+      // Create a session
+      const session = await account.createSession(email, password);
+
+      // Save the user in cookies
+      Cookies.set("session", session.$id, { expires: 7 });
+
+      // Navigate to home
       navigate("/userhome");
     } catch (error) {
       setErrorMessage("Signup failed. Please try again.");
@@ -43,6 +52,31 @@ const Signup: React.FC = () => {
       setIsSubmitting(false); // Reset submitting state
     }
   };
+
+  const checkSession = async () => {
+    try {
+      // Retrieve session from cookies
+      const sessionId = Cookies.get("session");
+
+      if (sessionId) {
+        // Get the current session data from Appwrite
+        const session = await account.getSession(sessionId);
+
+        console.log("Session valid:", session);
+        // Navigate to home
+        navigate("/userhome");
+      } else {
+        console.log("No active session found");
+      }
+    } catch (error) {
+      console.error("Session retrieval failed:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Check for existing session when the component mounts
+    checkSession();
+  }, []);
 
   return (
     <div className="signup-wrapper">
