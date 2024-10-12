@@ -38,9 +38,10 @@ const Login: React.FC = () => {
 
     try {
       setIsSubmitting(true); // Indicate form submission
-      await account.createEmailPasswordSession(email, password);
+      const session = await account.createEmailPasswordSession(email, password);
       const user = await account.get();
       setLoggedInUser(user);
+      Cookies.set("session", session.$id, { expires: 7 }); // Save session in cookies
       navigate("/userhome"); // Navigate to HomePage on successful login
     } catch (error) {
       setErrorMessage("Login failed. Please check your credentials.");
