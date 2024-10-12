@@ -1,6 +1,23 @@
+import React, { useState } from "react";
 import "./ChatBox.css"; // Assuming you have your CSS here for styling
 
 const ChatBox = () => {
+  // State to handle user input and AI response
+  const [query, setQuery] = useState("");
+  const [response, setResponse] = useState("");
+
+  const handleSend = () => {
+    // Placeholder for sending the message to an AI service or function
+    if (query.trim() !== "") {
+      // Example of handling the query dynamically and getting a response
+      const mockResponse = `You asked: "${query}". Here is how to improve your calves...`; // You can replace this with actual API call logic
+      setResponse(mockResponse);
+
+      // Clear the input field after sending the message
+      setQuery("");
+    }
+  };
+
   return (
     <div className="spot-container">
       <header className="spot-header">
@@ -9,47 +26,28 @@ const ChatBox = () => {
       </header>
 
       <div className="spot-chat">
+        {/* User's query */}
         <div className="user-query">
-          <p>How do I improve my Calves?</p>
+          <p>{query ? `You asked: ${query}` : "Ask anything on fitness!"}</p>
         </div>
 
+        {/* AI's response */}
         <div className="spot-response">
-          <h2>How to Improve Your Calves</h2>
-          <p>
-            Calf exercises are essential for strengthening and toning your lower
-            legs. Here are some effective exercises to incorporate into your
-            workout routine:
-          </p>
-
-          <h3>Calf Raises</h3>
-          <ul>
-            <li>
-              <strong>Standing Calf Raises:</strong>
-              <ul>
-                <li>Stand with your feet shoulder-width apart.</li>
-                <li>
-                  Raise your heels as high as you can, then lower them back
-                  down.
-                </li>
-                <li>For added resistance, hold weights in your hands.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Donkey Calf Raises:</strong>
-              <ul>
-                <li>
-                  Get on all fours, with your knees directly under your hips and
-                  your hands under your shoulders.
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <p>{response}</p>
         </div>
       </div>
 
       <div className="spot-input">
-        <input type="text" placeholder="Ask anything on fitness to Spot" />
-        <button>Send</button>
+        {/* Input for user query */}
+        <input
+          type="text"
+          placeholder="Ask anything on fitness to Spot"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+
+        {/* Button to send the query */}
+        <button onClick={handleSend}>Send</button>
       </div>
     </div>
   );

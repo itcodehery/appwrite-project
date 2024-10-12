@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import "./AppBar.css"; // Import the CSS file for styling
 
 interface AppBarType {
   is_for_user: boolean;
@@ -22,7 +23,7 @@ const AppBar = ({ is_for_user }: AppBarType) => {
               words={["SpotFit"]}
               loop={1}
               cursor
-              cursorStyle="|"
+              cursorStyle=""
               typeSpeed={100}
               deleteSpeed={50}
               delaySpeed={1000}

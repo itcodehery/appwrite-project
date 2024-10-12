@@ -6,7 +6,7 @@ import ChatBox from "../components/ChatBox";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
-import { Client, Databases, Query } from "appwrite";
+// import { Client, Databases, Query } from "appwrite";
 
 const UserHomePage: React.FC = () => {
   const navigate = useNavigate(); // Initialize useNavigate for routing
