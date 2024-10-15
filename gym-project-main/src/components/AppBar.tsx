@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import "./css/AppBar.css"; // Import the CSS file for styling
+import "../helpers/appwrite.ts"; // Import the Appwrite helpers
+import { logOut } from "../helpers/appwrite.ts";
 
 interface AppBarType {
   is_for_user: boolean;
@@ -9,6 +11,13 @@ interface AppBarType {
 
 // Import the components
 const AppBar = ({ is_for_user }: AppBarType) => {
+  const navigate = useNavigate(); // Initialize useNavigate for routing
+  const logItOut = async () => {
+    logOut().then(() => {
+      console.log("Logged out");
+      navigate("/");
+    });
+  };
   if (!is_for_user) {
     // return (
     //   <header className="navbar">
@@ -111,15 +120,14 @@ const AppBar = ({ is_for_user }: AppBarType) => {
             UserHome
           </Link>
         </div>
-        <div className="actions">
+        <div className="action-row">
           <Link to="/login" className="login-but">
             Log In
           </Link>
-          <Link to="/signup" className="login-but">
+          <Link to="/signup" className="signup-but">
             Sign Up
           </Link>
         </div>
-        <button className="login-but">Log Out</button>
       </header>
     );
   } else {
@@ -179,6 +187,9 @@ const AppBar = ({ is_for_user }: AppBarType) => {
             transition={{ duration: 1, delay: 1.1 }}
           ></motion.div>
         </nav>
+        <button className="login-but" onClick={logItOut}>
+          Log Out
+        </button>
       </header>
     );
   }

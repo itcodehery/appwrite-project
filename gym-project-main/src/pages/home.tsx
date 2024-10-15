@@ -42,7 +42,14 @@ const HomePage: React.FC = () => {
       <AppBar is_for_user={false} />
 
       {/* Hero Section with animated image */}
-      <section className="hi"></section>
+      <section className="hi">
+        <div>
+          <h2 className="hi-text">
+            Unlock your full potential with your fitness hub.
+          </h2>
+          <p className="hi-p">Join SpotFit Gyms and book Time Slots at ease.</p>
+        </div>
+      </section>
 
       <section className="time-slot-booking">
         <Time />
