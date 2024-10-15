@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './TimeSlotBooking.css'; // Import custom CSS
+import React, { useState } from "react";
+import "./css/TimeSlotBooking.css"; // Import custom CSS
 
 const TimeSlotBooking: React.FC = () => {
-  const [selectedSlot, setSelectedSlot] = useState<string>('');
+  const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [confirmationMessage, setConfirmationMessage] = useState<string>('');
+  const [confirmationMessage, setConfirmationMessage] = useState<string>("");
 
   // Generate time slots from 6 AM to 10 PM
   const generateTimeSlots = () => {
@@ -13,8 +13,8 @@ const TimeSlotBooking: React.FC = () => {
     for (let hour = 6; hour <= 22; hour++) {
       const start = hour % 24;
       const end = (hour + 1) % 24;
-      const startAmPm = start < 12 ? 'AM' : 'PM';
-      const endAmPm = end < 12 ? 'AM' : 'PM';
+      const startAmPm = start < 12 ? "AM" : "PM";
+      const endAmPm = end < 12 ? "AM" : "PM";
       const startHour = start === 0 ? 12 : start % 12;
       const endHour = end === 0 ? 12 : end % 12;
       slots.push(`${startHour} ${startAmPm} - ${endHour} ${endAmPm}`);
@@ -30,13 +30,13 @@ const TimeSlotBooking: React.FC = () => {
     }
     setBookedSlots((prev) => [...prev, selectedSlot]);
     setConfirmationMessage(`Slot Booked: ${selectedSlot}`);
-    setSelectedSlot('');
+    setSelectedSlot("");
     setShowModal(true); // Show confirmation modal
   };
 
   const handleReset = () => {
-    setConfirmationMessage('');
-    setSelectedSlot('');
+    setConfirmationMessage("");
+    setSelectedSlot("");
     setShowModal(false); // Close the modal
   };
 
@@ -47,7 +47,9 @@ const TimeSlotBooking: React.FC = () => {
         {slots.map((slot, index) => (
           <button
             key={index}
-            className={`slot-button ${selectedSlot === slot ? 'selected' : ''} ${bookedSlots.includes(slot) ? 'booked' : ''}`}
+            className={`slot-button ${
+              selectedSlot === slot ? "selected" : ""
+            } ${bookedSlots.includes(slot) ? "booked" : ""}`}
             onClick={() => !bookedSlots.includes(slot) && setSelectedSlot(slot)}
             disabled={bookedSlots.includes(slot)} // Disable if already booked
           >
@@ -55,10 +57,18 @@ const TimeSlotBooking: React.FC = () => {
           </button>
         ))}
       </div>
-      <button className="confirm-button" onClick={handleBooking} disabled={!selectedSlot}>
+      <button
+        className="confirm-button"
+        onClick={handleBooking}
+        disabled={!selectedSlot}
+      >
         Confirm Booking
       </button>
-      <button className="reset-button" onClick={handleReset} disabled={!confirmationMessage}>
+      <button
+        className="reset-button"
+        onClick={handleReset}
+        disabled={!confirmationMessage}
+      >
         Reset Booking
       </button>
 
@@ -66,7 +76,9 @@ const TimeSlotBooking: React.FC = () => {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+            <span className="close" onClick={() => setShowModal(false)}>
+              &times;
+            </span>
             <p>{confirmationMessage}</p>
             <button onClick={() => setShowModal(false)}>Close</button>
           </div>
