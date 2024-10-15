@@ -1,0 +1,36 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 16px;
+    border:none;
+    border-radius: 40px;
+    height: 60px;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    
+}
+
+.action {
+    padding: 0 10px;
+    all: unset;
+    color: white;
+    transition: all 0.3s;
+}
+
+.action:hover {
+    cursor: pointer;
+    color: rgb(210, 210, 210);
+}
+
+.login-but {
+    display: block;
+    align-items: center;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(245, 255, 53);
+    color: black;
+    text-transform: uppercase;
+}

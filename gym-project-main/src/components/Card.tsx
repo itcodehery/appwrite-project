@@ -1,12 +1,16 @@
-import React from 'react';
-import './Cardstyle.css';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import logo from '../assets/images/white-logo.png'; // Ensure this path is correct
+import React from "react";
+import "./css/Cardstyle.css";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import logo from "../assets/images/white-logo.png"; // Ensure this path is correct
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 1, type: 'spring', stiffness: 100 } },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1, type: "spring", stiffness: 100 },
+  },
 };
 
 const containerVariants = {
@@ -29,7 +33,7 @@ const Card: React.FC = () => {
       ref={sectionRef}
       variants={containerVariants}
       initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'} // Triggers animation only when in view
+      animate={isInView ? "visible" : "hidden"} // Triggers animation only when in view
     >
       <h1 className="membership-heading">Choose Your Membership Plan</h1>
 
@@ -43,13 +47,18 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>1 Month Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <img
+                src={logo}
+                alt="Membership Logo"
+                className="membership-logo"
+              />
               <p className="replacement-text">Exclusive Offer!</p>
             </div>
             <div className="dynamic-content">
               <p className="price">Price: ₹700</p>
               <p>
-                Enjoy a 1-month subscription with access to all premium features including:
+                Enjoy a 1-month subscription with access to all premium features
+                including:
                 <ul>
                   <li>Unlimited access to exclusive content</li>
                   <li>Priority customer support</li>
@@ -70,7 +79,11 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>2 Month Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <img
+                src={logo}
+                alt="Membership Logo"
+                className="membership-logo"
+              />
               <p className="replacement-text">Best Value!</p>
             </div>
             <div className="dynamic-content">
@@ -97,7 +110,11 @@ const Card: React.FC = () => {
             <div className="diagonal-background"></div>
             <div className="static-content">
               <h3>1 Year Membership</h3>
-              <img src={logo} alt="Membership Logo" className="membership-logo" />
+              <img
+                src={logo}
+                alt="Membership Logo"
+                className="membership-logo"
+              />
               <p className="replacement-text">Ultimate Plan!</p>
             </div>
             <div className="dynamic-content">

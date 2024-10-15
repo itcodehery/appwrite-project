@@ -1,47 +1,46 @@
 // src/Chatbot.tsx
-import React, { useState } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai'; // Import the Gemini API
-import './ChatBox.css'; // Assuming you have your CSS here for styling
+import React, { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai"; // Import the Gemini API
+import "./css/ChatBox.css"; // Assuming you have your CSS here for styling
 
 // Define the Message interface
 interface Message {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
 }
 
 // Define the gym-related keywords with a union type for keys
 type GymKeywordKey =
-  | 'workout'
-  | 'nutrition'
-  | 'membership'
-  | 'equipment'
-  | 'training'
-  | 'fitness'
-  | 'classes'
-  | 'hours'
-  | 'weightLoss'
-  | 'muscleGain';
+  | "workout"
+  | "nutrition"
+  | "membership"
+  | "equipment"
+  | "training"
+  | "fitness"
+  | "classes"
+  | "hours"
+  | "weightLoss"
+  | "muscleGain";
 
 const gymKeywords: Record<GymKeywordKey, string[]> = {
-  workout: ['workout', 'routine', 'exercise'],
-  nutrition: ['nutrition', 'diet', 'meal'],
-  membership: ['membership', 'join', 'sign up'],
-  equipment: ['equipment', 'gear', 'machines'],
-  training: ['personal training', 'trainer', 'coach'],
-  fitness: ['fitness', 'goals', 'progress'],
-  classes: ['class', 'schedule', 'timings'],
-  hours: ['hours', 'open', 'close'],
-  weightLoss: ['weight loss', 'lose weight'],
-  muscleGain: ['muscle gain', 'build muscle'],
+  workout: ["workout", "routine", "exercise"],
+  nutrition: ["nutrition", "diet", "meal"],
+  membership: ["membership", "join", "sign up"],
+  equipment: ["equipment", "gear", "machines"],
+  training: ["personal training", "trainer", "coach"],
+  fitness: ["fitness", "goals", "progress"],
+  classes: ["class", "schedule", "timings"],
+  hours: ["hours", "open", "close"],
+  weightLoss: ["weight loss", "lose weight"],
+  muscleGain: ["muscle gain", "build muscle"],
 };
 
 const Chatbot: React.FC = () => {
-  const [userInput, setUserInput] = useState<string>('');
+  const [userInput, setUserInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Replace this with your actual API key
-  const API_KEY = 'AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c';
+  const API_KEY = "AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
@@ -51,7 +50,7 @@ const Chatbot: React.FC = () => {
     if (!userInput) return;
 
     // Add user's message to the chat
-    const newMessage: Message = { role: 'user', content: userInput };
+    const newMessage: Message = { role: "user", content: userInput };
     setMessages((prev) => [...prev, newMessage]);
 
     // Check if the message contains gym-related keywords
@@ -64,12 +63,12 @@ const Chatbot: React.FC = () => {
     if (!isGymRelated) {
       // Respond with a predefined message if the question is not gym-related
       const customMessage: Message = {
-        role: 'assistant',
+        role: "assistant",
         content:
           "I'm here to help with gym-related questions. Please ask about workouts, nutrition, or anything related to fitness!",
       };
       setMessages((prev) => [...prev, customMessage]);
-      setUserInput('');
+      setUserInput("");
       return;
     }
 
@@ -77,22 +76,22 @@ const Chatbot: React.FC = () => {
     try {
       // Initialize the Google Generative AI
       const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const result = await model.generateContent(userInput); // Pass user input as prompt
 
       // Add the chatbot's response to the chat
       const botMessage: Message = {
-        role: 'assistant',
+        role: "assistant",
         content: result.response.text(), // Get the response text from the model
       };
       setMessages((prev) => [...prev, botMessage]);
-      setUserInput('');
+      setUserInput("");
     } catch (error) {
-      console.error('Error fetching response from Gemini:', error);
+      console.error("Error fetching response from Gemini:", error);
       const errorMessage: Message = {
-        role: 'assistant',
-        content: 'An error occurred while generating content.',
+        role: "assistant",
+        content: "An error occurred while generating content.",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -113,9 +112,12 @@ const Chatbot: React.FC = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.role === 'user' ? 'user' : 'assistant'}`}
+              className={`message ${
+                msg.role === "user" ? "user" : "assistant"
+              }`}
             >
-              <strong>{msg.role === 'user' ? 'You' : 'Spot'}:</strong> {msg.content}
+              <strong>{msg.role === "user" ? "You" : "Spot"}:</strong>{" "}
+              {msg.content}
             </div>
           ))}
         </div>
@@ -129,7 +131,7 @@ const Chatbot: React.FC = () => {
           onChange={handleInputChange}
         />
         <button onClick={handleSendMessage} disabled={loading}>
-          {loading ? 'Sending...' : 'Send'}
+          {loading ? "Sending..." : "Send"}
         </button>
       </div>
     </div>
