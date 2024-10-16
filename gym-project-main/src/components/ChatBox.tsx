@@ -9,38 +9,12 @@ interface Message {
   content: string;
 }
 
-// Define the gym-related keywords with a union type for keys
-type GymKeywordKey =
-  | 'workout'
-  | 'nutrition'
-  | 'membership'
-  | 'equipment'
-  | 'training'
-  | 'fitness'
-  | 'classes'
-  | 'hours'
-  | 'weightLoss'
-  | 'muscleGain';
-
-const gymKeywords: Record<GymKeywordKey, string[]> = {
-  workout: ['workout', 'routine', 'exercise'],
-  nutrition: ['nutrition', 'diet', 'meal'],
-  membership: ['membership', 'join', 'sign up'],
-  equipment: ['equipment', 'gear', 'machines'],
-  training: ['personal training', 'trainer', 'coach'],
-  fitness: ['fitness', 'goals', 'progress'],
-  classes: ['class', 'schedule', 'timings'],
-  hours: ['hours', 'open', 'close'],
-  weightLoss: ['weight loss', 'lose weight'],
-  muscleGain: ['muscle gain', 'build muscle'],
-};
-
 const Chatbot: React.FC = () => {
   const [userInput, setUserInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Replace this with your actual API key
+  // API key is unchanged
   const API_KEY = 'AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,25 +27,6 @@ const Chatbot: React.FC = () => {
     // Add user's message to the chat
     const newMessage: Message = { role: "user", content: userInput };
     setMessages((prev) => [...prev, newMessage]);
-
-    // Check if the message contains gym-related keywords
-    const isGymRelated = Object.keys(gymKeywords).some((key) =>
-      gymKeywords[key as GymKeywordKey].some((keyword) =>
-        userInput.toLowerCase().includes(keyword)
-      )
-    );
-
-    if (!isGymRelated) {
-      // Respond with a predefined message if the question is not gym-related
-      const customMessage: Message = {
-        role: 'assistant',
-        content:
-          "I'm here to help with gym-related questions. Please ask about workouts, nutrition, or anything related to fitness!",
-      };
-      setMessages((prev) => [...prev, customMessage]);
-      setUserInput('');
-      return;
-    }
 
     setLoading(true);
     try {
