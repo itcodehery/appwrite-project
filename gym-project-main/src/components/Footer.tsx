@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
                     borderColor: "white",
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: "red",
+                    borderColor: "rgb(242, 255, 0);",
                   },
                 },
                 input: {
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
                 },
               }}
             />
-            <Button variant="contained" color="error" sx={{ bgcolor: "red" }}>
+            <Button variant="contained" color="error" sx={{ bgcolor: "rgb(242, 255, 0);", color: "black" }}>
               Send
             </Button>
           </Box>
