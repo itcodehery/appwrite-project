@@ -110,8 +110,8 @@ ul li {
 .buy-button {
   margin-top: 20px;
   padding: 12px 25px;
-  background-color: red;
-  color: white; /* Ensure button text is white */
+  background-color: rgb(242, 255, 0);;
+  color: rgb(11, 11, 11); /* Ensure button text is white */
   border: none;
   border-radius: 5px;
   cursor: pointer;

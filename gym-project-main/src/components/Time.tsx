@@ -1,6 +1,6 @@
 import { Button, Box, Typography, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import hiImage from '../assets/images/hi2.webp'; // Correct image path
+import hiImage from '../assets/images/hi3.webp'; // Correct image path
 import { Link } from 'react-router-dom';
 
 const StrengthProgram = () => {
@@ -74,40 +74,42 @@ const StrengthProgram = () => {
                 },
               }}
             >
-              <CheckCircleIcon sx={{ color: 'red' }} />
+              <CheckCircleIcon sx={{ color: 'rgb(242, 255, 0)' }} />
             </ListItemIcon>
             <ListItemText primary="Real-time gym slot booking" sx={{ color: '#fff' }} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <CheckCircleIcon sx={{ color: 'red' }} />
+              <CheckCircleIcon sx={{ color: 'rgb(242, 255, 0)' }} />
             </ListItemIcon>
             <ListItemText primary="Up-to-date capacity information" sx={{ color: '#fff' }} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <CheckCircleIcon sx={{ color: 'red' }} />
+              <CheckCircleIcon sx={{ color: 'rgb(242, 255, 0)' }} />
             </ListItemIcon>
             <ListItemText primary="Seamless, easy-to-use interface" sx={{ color: '#fff' }} />
           </ListItem>
         </List>
         <Button
-  variant="contained"
-  component={Link}
-  to="/timeslot"
-  sx={{
-    marginTop: '1rem',
-    backgroundColor: 'red',
-    '&:hover': {
-      backgroundColor: '#333',
-      transform: 'scale(1.05)',
-      boxShadow: '0 0 15px 5px rgba(0, 0, 0, 0.6)',
-      transition: 'all 0.3s ease',
-    },
-  }}
->
-  Book Your Slot Now
-</Button>
+          variant="contained"
+          component={Link}
+          to="/timeslot"
+          sx={{
+            marginTop: '1rem',
+            color:'black',
+            backgroundColor: 'rgb(242, 255, 0);',
+            '&:hover': {
+              backgroundColor: '#333',
+              color:'white',
+              transform: 'scale(1.05)',
+              boxShadow: '0 0 15px 5px rgba(0, 0, 0, 0.6)',
+              transition: 'all 0.3s ease',
+            },
+          }}
+        >
+          Book Your Slot Now
+        </Button>
       </Box>
 
       {/* Right Side Image */}
