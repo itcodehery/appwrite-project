@@ -1,5 +1,4 @@
-// src/Chatbot.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react"; // Import useRef and useEffect
 import { GoogleGenerativeAI } from "@google/generative-ai"; // Import the Gemini API
 import "./css/ChatBox.css"; // Assuming you have your CSS here for styling
 
@@ -13,6 +12,7 @@ const Chatbot: React.FC = () => {
   const [userInput, setUserInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null); // Reference to the bottom of the chat
 
   // API key is unchanged
   const API_KEY = 'AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c';
@@ -58,6 +58,11 @@ const Chatbot: React.FC = () => {
     }
   };
 
+  // Scroll to the bottom of the chat when messages are updated
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div className="spot-container">
       <header className="spot-header">
@@ -79,6 +84,7 @@ const Chatbot: React.FC = () => {
               {msg.content}
             </div>
           ))}
+          <div ref={messagesEndRef} /> {/* Scroll to this element */}
         </div>
       </div>
 
