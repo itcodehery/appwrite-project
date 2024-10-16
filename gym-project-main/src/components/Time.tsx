@@ -122,9 +122,12 @@ const StrengthProgram = () => {
           borderRadius: '15px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
           perspective: '1000px',
+          img: {
+            transform: 'rotateY(0deg)', // Default state
+            transition: 'transform 1s ease', // Transition outside hover
+          },
           '&:hover img': {
-            transform: 'rotateY(15deg)',
-            transition: 'transform 0.5s ease',
+            transform: 'rotateY(15deg)', // Hover state
           }
         }}
       >
