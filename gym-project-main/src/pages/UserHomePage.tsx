@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./UserHomePage.css";
-import AppBar from "../components/AppBar";
-import ActionCard from "../components/ActionCard";
-import ChatBox from "../components/ChatBox";
+import AppBar from "../components/ts/AppBar.tsx";
+import ActionCard from "../components/ts/ActionCard.tsx";
+import ChatBox from "../components/ts/ChatBox.tsx";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { account, databases } from "../helpers/appwrite.ts"; // Import account from Appwrite

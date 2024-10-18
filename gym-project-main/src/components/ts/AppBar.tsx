@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import "./css/AppBar.css"; // Import the CSS file for styling
-import "../helpers/appwrite.ts"; // Import the Appwrite helpers
-import { logOut } from "../helpers/appwrite.ts";
+import "../css/AppBar.css"; // Import the CSS file for styling
+import "../../helpers/appwrite.ts"; // Import the Appwrite helpers
+import { logOut } from "../../helpers/appwrite.ts";
 
 interface AppBarType {
   is_for_user: boolean;

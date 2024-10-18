@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"; // Import useRef and useEffect
 import { GoogleGenerativeAI } from "@google/generative-ai"; // Import the Gemini API
-import "./css/ChatBox.css"; // Assuming you have your CSS here for styling
+import "../css/ChatBox.css"; // Assuming you have your CSS here for styling
 
 // Define the Message interface
 interface Message {

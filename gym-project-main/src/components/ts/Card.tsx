@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/Cardstyle.css";
+import "../css/Cardstyle.css";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import logo from "../assets/images/white-logo.png"; // Ensure this path is correct

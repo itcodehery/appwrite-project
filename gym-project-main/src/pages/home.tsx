@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./HomePage.css";
-import Card from "../components/Card"; // Import the Card component
-import Time from "../components/Time";
-import Footer from "../components/Footer.tsx";
-import AppBar from "../components/AppBar";
+import Card from "../components/ts/Card.tsx"; // Import the Card component
+import Time from "../components/ts/Time.tsx";
+import Footer from "../components/ts/Footer.tsx";
+import AppBar from "../components/ts/AppBar.tsx";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
