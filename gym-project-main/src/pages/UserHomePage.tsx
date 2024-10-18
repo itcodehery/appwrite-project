@@ -1,15 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserHomePage.css";
 import AppBar from "../components/AppBar";
 import ActionCard from "../components/ActionCard";
 import ChatBox from "../components/ChatBox";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
+import { account, databases } from "../helpers/appwrite.ts"; // Import account from Appwrite
+import { GymInfo } from "../helpers/GymInfo.ts";
 // import { Client, Databases, Query } from "appwrite";
 
 const UserHomePage: React.FC = () => {
   const navigate = useNavigate(); // Initialize useNavigate for routing
+  const [gyminfo, setInfo] = useState(
+    new GymInfo("", "", "", "", "", "", false, "")
+  );
+
+  const fetchGymInfo = async () => {
+    try {
+      const response = await databases.listDocuments(
+        "6704c99a003ba58938df",
+        "67125e450014869460e4"
+      );
+      console.log(response.documents);
+      // alert("Gym info fetched");
+      setInfo(GymInfo.from_json(response.documents[0]));
+    } catch (error) {
+      console.error("Error fetching gym info:", error);
+      alert("Error fetching gym info: ");
+    }
+  };
 
   const checkSession = async () => {
     // This helps if the user directly enters the url of the home page.
@@ -33,9 +52,18 @@ const UserHomePage: React.FC = () => {
     }
   };
 
+  function handleContactGym() {
+    navigator.clipboard.writeText(gyminfo.manager_email);
+    alert("Email copied to clipboard");
+    // open email client
+    window.open(`mailto:${gyminfo.manager_email}`);
+  }
+
   useEffect(() => {
     // Check for existing session when the component mounts
-    checkSession();
+    checkSession().then(() => {
+      fetchGymInfo();
+    });
   }, []);
 
   return (
@@ -45,15 +73,24 @@ const UserHomePage: React.FC = () => {
         <div className="left-content">
           <div className="your-gym">
             <div className="column">
-              <div className="column">
+              <div className="column-int">
                 <p>Your Gym</p>
-                <h2>Ripped 2.0</h2>
-                <p>Open from 06:00 to 08:00</p>
+                <h2>{gyminfo.gym_name}</h2>
+                <div className="row">
+                  <div className="chip">
+                    {gyminfo.is_open ? "Open" : "Closed"}
+                  </div>
+                  <p>
+                    from {gyminfo.open_time} to {gyminfo.close_time}
+                  </p>
+                </div>
               </div>
               <div className="row-spread">
                 <div></div>
                 <div className="row">
-                  <button className="main-but-sec">Contact Gym</button>
+                  <button className="main-but-sec" onClick={handleContactGym}>
+                    Contact Gym
+                  </button>
                   <button className="main-but-pri">Check for Slots</button>
                 </div>
               </div>
