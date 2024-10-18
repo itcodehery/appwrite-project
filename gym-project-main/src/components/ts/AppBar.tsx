@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import "./css/AppBar.css"; // Import the CSS file for styling
-import "../helpers/appwrite.ts"; // Import the Appwrite helpers
-import { logOut } from "../helpers/appwrite.ts";
+import "../css/AppBar.css"; // Import the CSS file for styling
+import "../../helpers/appwrite.ts"; // Import the Appwrite helpers
+import { logOut } from "../../helpers/appwrite.ts";
 
 interface AppBarType {
   is_for_user: boolean;
@@ -104,20 +104,14 @@ const AppBar = ({ is_for_user }: AppBarType) => {
           <h1>SpotFit</h1>
         </div>
         <div className="buttons">
-          <Link to="/home" className="action">
+          <Link to="/" className="action">
             Home
-          </Link>
-          <Link to="/gyms" className="action">
-            Gyms
           </Link>
           <Link to="/trainers" className="action">
             Trainers
           </Link>
           <Link to="/membership" className="action">
             Membership
-          </Link>
-          <Link to="/userhome" className="action">
-            UserHome
           </Link>
         </div>
         <div className="action-row">
@@ -151,42 +145,17 @@ const AppBar = ({ is_for_user }: AppBarType) => {
             />
           </motion.h1>
         </div>
-        <nav className="nav-links">
-          {/* Animated navigation links */}
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <Link to="/home">Home</Link>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            <Link to="/gyms">Gyms</Link>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7 }}
-          >
-            <Link to="/trainers">Trainers</Link>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.9 }}
-          >
-            <Link to="/membership">Membership</Link>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1 }}
-          ></motion.div>
-        </nav>
+        <div className="buttons">
+          <Link to="/" className="action">
+            Home
+          </Link>
+          <Link to="/trainers" className="action">
+            Trainers
+          </Link>
+          <Link to="/membership" className="action">
+            Membership
+          </Link>
+        </div>
         <button className="login-but" onClick={logItOut}>
           Log Out
         </button>

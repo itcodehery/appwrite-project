@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"; // Import useRef and useEffect
 import { GoogleGenerativeAI } from "@google/generative-ai"; // Import the Gemini API
-import "./css/ChatBox.css"; // Assuming you have your CSS here for styling
+import "../css/ChatBox.css"; // Assuming you have your CSS here for styling
 
 // Define the Message interface
 interface Message {
@@ -15,7 +15,7 @@ const Chatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null); // Reference to the bottom of the chat
 
   // API key is unchanged
-  const API_KEY = 'AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c';
+  const API_KEY = "AIzaSyCmzEeL5SFS2sWia27dJc60H5fsqLWda3c";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
@@ -32,11 +32,11 @@ const Chatbot: React.FC = () => {
     try {
       // Initialize the Google Generative AI
       const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       // Create a prompt that includes your instruction
       const prompt = `Only respond with gym-related information reply like to a gym member. User: ${userInput}`;
-      
+
       const result = await model.generateContent(prompt); // Pass the new prompt to the model
 
       // Add the chatbot's response to the chat
@@ -80,7 +80,7 @@ const Chatbot: React.FC = () => {
                 msg.role === "user" ? "user" : "assistant"
               }`}
             >
-              <strong>{msg.role === "user" ? "You" : "Spot"}:</strong>{" "}
+              <strong>{msg.role === "user" ? "\nYou" : "\nSpot"}:</strong>{" "}
               {msg.content}
             </div>
           ))}

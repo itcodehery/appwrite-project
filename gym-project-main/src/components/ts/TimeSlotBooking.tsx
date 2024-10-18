@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./css/TimeSlotBooking.css"; // Import custom CSS
+import "../css/TimeSlotBooking.css"; // Import custom CSS
 
 const TimeSlotBooking: React.FC = () => {
   const [selectedSlot, setSelectedSlot] = useState<string>("");
