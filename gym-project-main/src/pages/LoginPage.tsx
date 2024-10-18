@@ -114,7 +114,9 @@ const Login: React.FC = () => {
 
           <div className="login-options">
             <div>
-              <a href="#">Forgot password?</a>
+            <Link to="/fogotpas">  
+              <a >Forgot password?</a>
+              </Link>
             </div>
           </div>
 
