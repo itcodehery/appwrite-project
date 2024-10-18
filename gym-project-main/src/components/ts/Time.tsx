@@ -1,6 +1,6 @@
 import { Button, Box, Typography, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import hiImage from '../assets/images/hi3.webp'; // Correct image path
+import hiImage from '../../assets/images/hi3.webp';
 import { Link } from 'react-router-dom';
 
 const StrengthProgram = () => {

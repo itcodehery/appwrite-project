@@ -2,7 +2,7 @@ import React from "react";
 import "../css/Cardstyle.css";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import logo from "../assets/images/white-logo.png"; // Ensure this path is correct
+import logo from "../../assets/images/white-logo.png"; // Ensure this path is correct
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.8 },

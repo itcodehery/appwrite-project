@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Login.css"; // Import your styles
-import Image from "../assets/images/white.png"; // Ensure this path is correct
+import Image from "..//assets/images/White.png"; // Ensure this path is correct
 import { Models } from "appwrite"; // Ensure this import is correct
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
