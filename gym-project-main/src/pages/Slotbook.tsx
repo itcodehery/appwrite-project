@@ -2,16 +2,15 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Client, Account, Databases, ID, Permission, Role, Query } from 'appwrite';
 
+// Initialize the Appwrite client
 const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1")
-    .setProject("6700b592001d71931ab9");
-
-client.headers["X-Appwrite-Key"] = "standard_60d8a20948776a704fad854478d5b0a62caf085adab5c511a3eb38ba0f5a7dd6f2e96bec1d6fce072bc755631927fcfa2666432749132841137d81e971c8423932ef65a55005f3f6e603faac50edda40566141a5516c35a33c633ea701f30564b75f48c9afe8aaaee46f6970a9f890c75051d7798f54538d070319e36aea9c0c";
+    .setEndpoint("https://cloud.appwrite.io/v1") // Your Appwrite endpoint
+    .setProject("6700b592001d71931ab9"); // Your Appwrite project ID
 
 const account = new Account(client);
 const databases = new Databases(client);
-const databaseId = "671d0563002639d0fd79"; // Your database ID
-const collectionId = "YOUR_COLLECTION_ID"; // Your collection ID
+const databaseId = "6704c99a003ba58938df"; // Your database ID
+const collectionId = "6714e5bd0032f6416f89"; // Your collection ID
 
 const logOut = async () => {
     try {
@@ -24,29 +23,26 @@ const logOut = async () => {
 };
 
 const BookingPage = () => {
-    const userId = Cookies.get('userId'); // Directly retrieve userId from cookies 
+    const userId = Cookies.get("userId"); // Retrieve userId from cookies
     const [bookingData, setBookingData] = useState<any>(null);
     const [bookDate, setBookDate] = useState<string>("");
 
     useEffect(() => {
         const fetchUserData = async () => {
-            // Check if userId is defined
-            const userId = Cookies.get("userId");
-           
-
-           
-            
             if (!userId) return;
-            
 
             try {
                 const response = await databases.listDocuments(databaseId, collectionId, [
-                    Query.equal("userId", userId), // Use userId only if it's defined
+                    Query.equal("userId", userId), // Query to check if userId exists
                 ]);
 
                 if (response.total > 0) {
+                    // If userId exists, set booking data and book date
                     setBookingData(response.documents[0]);
                     setBookDate(response.documents[0].bookdate);
+                } else {
+                    // If userId doesn't exist, create a new entry
+                    await createBooking();
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -54,6 +50,21 @@ const BookingPage = () => {
         };
         fetchUserData();
     }, [userId]);
+
+    const createBooking = async () => {
+        const data = { userId: userId as string, time: new Date().toISOString(), bookdate: bookDate };
+
+        try {
+            await databases.createDocument(databaseId, collectionId, ID.unique(), data, [
+                Permission.read(Role.user(userId as string)), // Use userId safely
+                Permission.update(Role.user(userId as string)),
+                Permission.delete(Role.user(userId as string)),
+            ]);
+            alert("Booking created successfully!");
+        } catch (error) {
+            console.error("Error creating booking:", error);
+        }
+    };
 
     const handleBooking = async () => {
         if (!userId) {
@@ -66,19 +77,16 @@ const BookingPage = () => {
             return;
         }
 
-        const data = { userId, time: new Date().toISOString(), bookdate: bookDate };
+        const data = { userId: userId as string, time: new Date().toISOString(), bookdate: bookDate };
 
         try {
             if (bookingData) {
+                // Update existing booking
                 await databases.updateDocument(databaseId, collectionId, bookingData.$id, data);
                 alert("Booking updated successfully!");
             } else {
-                await databases.createDocument(databaseId, collectionId, ID.unique(), data, [
-                    Permission.read(Role.user(userId)),
-                    Permission.update(Role.user(userId)),
-                    Permission.delete(Role.user(userId)),
-                ]);
-                alert("Booking created successfully!");
+                // Create new booking if bookingData is not set
+                await createBooking();
             }
             setBookingData(data);
         } catch (error) {
