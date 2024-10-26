@@ -3,10 +3,11 @@ import "./UserHomePage.css";
 import AppBar from "../components/ts/AppBar.tsx";
 import ActionCard from "../components/ts/ActionCard.tsx";
 import ChatBox from "../components/ts/ChatBox.tsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { account, databases } from "../helpers/appwrite.ts"; // Import account from Appwrite
 import { GymInfo } from "../helpers/GymInfo.ts";
+
 // import { Client, Databases, Query } from "appwrite";
 
 const UserHomePage: React.FC = () => {
@@ -91,7 +92,10 @@ const UserHomePage: React.FC = () => {
                   <button className="main-but-sec" onClick={handleContactGym}>
                     Contact Gym
                   </button>
+                  <Link to="/slotbook" className="action">
+          
                   <button className="main-but-pri">Check for Slots</button>
+                  </Link>
                 </div>
               </div>
             </div>

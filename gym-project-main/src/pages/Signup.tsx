@@ -42,7 +42,6 @@ const Signup: React.FC = () => {
 
       // Save the user in cookies
       Cookies.set("session", session.$id, { expires: 7 });
-
       // Navigate to home
       navigate("/userhome");
     } catch (error) {
