@@ -26,8 +26,9 @@ const BookingPage = () => {
     const userId = Cookies.get("userId"); // Retrieve userId from cookies
     const [bookingData, setBookingData] = useState<any>(null);
     const [bookDate, setBookDate] = useState<string>("");
-    const [slotTime, setSlotTime] = useState<string>("");
-    const [tomorrowSlots, setTomorrowSlots] = useState<string[]>([]); // State for tomorrow's slot times
+    const [startTime, setStartTime] = useState<string>("");
+    const [endTime, setEndTime] = useState<string>("");
+    const [tomorrowSlots, setTomorrowSlots] = useState<Array<{ start_time: string, end_time: string }>>([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -41,7 +42,10 @@ const BookingPage = () => {
                 ]);
 
                 // Extract slot times for tomorrow's bookings
-                const slots = response.documents.map((booking) => booking.slot_time);
+                const slots = response.documents.map((booking) => ({
+                    start_time: booking.start_time,
+                    end_time: booking.end_time
+                }));
                 setTomorrowSlots(slots);
 
                 // Fetch current user's booking if it exists
@@ -52,7 +56,8 @@ const BookingPage = () => {
                 if (userResponse.total > 0) {
                     setBookingData(userResponse.documents[0]);
                     setBookDate(userResponse.documents[0].booking_date);
-                    setSlotTime(userResponse.documents[0].slot_time);
+                    setStartTime(userResponse.documents[0].start_time);
+                    setEndTime(userResponse.documents[0].end_time);
                 } else {
                     await createBooking();
                 }
@@ -74,7 +79,8 @@ const BookingPage = () => {
         const data = { 
             user_id: userId as string, 
             gym_id: "your_gym_id", // replace with actual gym ID if available
-            slot_time: slotTime, 
+            start_time: startTime, 
+            end_time: endTime,
             booking_date: bookDate 
         };
 
@@ -105,7 +111,8 @@ const BookingPage = () => {
         const data = { 
             user_id: userId as string, 
             gym_id: "your_gym_id", 
-            slot_time: slotTime, 
+            start_time: startTime, 
+            end_time: endTime,
             booking_date: bookDate 
         };
 
@@ -138,8 +145,15 @@ const BookingPage = () => {
             />
             <input
                 type="time"
-                value={slotTime}
-                onChange={(e) => setSlotTime(e.target.value)}
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                placeholder="Start Time"
+            />
+            <input
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                placeholder="End Time"
             />
             <button onClick={handleBooking}>
                 {bookingData ? "Update Booking" : "Create Booking"}
@@ -150,7 +164,8 @@ const BookingPage = () => {
                 <div style={{ marginTop: "20px" }}>
                     <h3>Your Booking Details:</h3>
                     <p><strong>Gym ID:</strong> {bookingData.gym_id}</p>
-                    <p><strong>Slot Time:</strong> {bookingData.slot_time}</p>
+                    <p><strong>Start Time:</strong> {bookingData.start_time}</p>
+                    <p><strong>End Time:</strong> {bookingData.end_time}</p>
                     <p><strong>Booking Date:</strong> {bookingData.booking_date}</p>
                 </div>
             )}
@@ -159,9 +174,9 @@ const BookingPage = () => {
                 <h3>Available Timeslots for Tomorrow:</h3>
                 {tomorrowSlots.length > 0 ? (
                     <ul>
-                        {tomorrowSlots.map((time, index) => (
+                        {tomorrowSlots.map((slot, index) => (
                             <li key={index}>
-                                <p><strong>Slot Time:</strong> {time}</p>
+                                <p><strong>Start Time:</strong> {slot.start_time} <strong>End Time:</strong> {slot.end_time}</p>
                             </li>
                         ))}
                     </ul>
