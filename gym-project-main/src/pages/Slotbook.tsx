@@ -27,58 +27,60 @@ const BookingPage = () => {
     const [bookingData, setBookingData] = useState<any>(null);
     const [bookDate, setBookDate] = useState<string>("");
     const [slotTime, setSlotTime] = useState<string>("");
-    const [allBookedSlots, setAllBookedSlots] = useState<string[]>([]); // State for all booked time slots
+    const [tomorrowSlots, setTomorrowSlots] = useState<string[]>([]); // State for tomorrow's slot times
 
     useEffect(() => {
         const fetchUserData = async () => {
             if (!userId) return;
 
             try {
+                // Fetch all bookings for tomorrow's date
+                const tomorrow = getTomorrowDate();
                 const response = await databases.listDocuments(databaseId, collectionId, [
-                    Query.equal("user_id", userId), // Query to check if userId exists
+                    Query.equal("booking_date", tomorrow),
                 ]);
 
-                if (response.total > 0) {
-                    // If userId exists, set booking data and book date
-                    setBookingData(response.documents[0]);
-                    setBookDate(response.documents[0].booking_date);
-                    setSlotTime(response.documents[0].slot_time);
+                // Extract slot times for tomorrow's bookings
+                const slots = response.documents.map((booking) => booking.slot_time);
+                setTomorrowSlots(slots);
+
+                // Fetch current user's booking if it exists
+                const userResponse = await databases.listDocuments(databaseId, collectionId, [
+                    Query.equal("user_id", userId),
+                ]);
+
+                if (userResponse.total > 0) {
+                    setBookingData(userResponse.documents[0]);
+                    setBookDate(userResponse.documents[0].booking_date);
+                    setSlotTime(userResponse.documents[0].slot_time);
                 } else {
-                    // If userId doesn't exist, create a new entry
                     await createBooking();
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
         };
-
-        const fetchAllBookedSlots = async () => {
-            try {
-                const allBookings = await databases.listDocuments(databaseId, collectionId);
-
-                // Extract only the slot_time from each booking
-                const slots = allBookings.documents.map((doc: any) => doc.slot_time);
-                setAllBookedSlots(slots); // Update the state with all booked slots
-            } catch (error) {
-                console.error("Error fetching all booked slots:", error);
-            }
-        };
-
         fetchUserData();
-        fetchAllBookedSlots(); // Fetch all booked slots when component mounts
     }, [userId]);
+
+    const getTomorrowDate = () => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        return tomorrow.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+    };
 
     const createBooking = async () => {
         const data = { 
             user_id: userId as string, 
             gym_id: "your_gym_id", // replace with actual gym ID if available
-            slot_time: slotTime, // replace slot_id with slot_time
+            slot_time: slotTime, 
             booking_date: bookDate 
         };
 
         try {
             const newBooking = await databases.createDocument(databaseId, collectionId, ID.unique(), data, [
-                Permission.read(Role.user(userId as string)), // Use userId safely
+                Permission.read(Role.user(userId as string)),
                 Permission.update(Role.user(userId as string)),
                 Permission.delete(Role.user(userId as string)),
             ]);
@@ -92,18 +94,18 @@ const BookingPage = () => {
     const handleBooking = async () => {
         if (!userId) {
             alert("User not logged in.");
-            return; // Prevent booking if userId is undefined
+            return;
         }
 
         if (!validateBookingDate(bookDate)) {
-            alert("Bookings are allowed only for the next two days.");
+            alert("Bookings are allowed only for tomorrow.");
             return;
         }
 
         const data = { 
             user_id: userId as string, 
-            gym_id: "your_gym_id", // replace with actual gym ID if available
-            slot_time: slotTime, // replace slot_id with slot_time
+            gym_id: "your_gym_id", 
+            slot_time: slotTime, 
             booking_date: bookDate 
         };
 
@@ -114,7 +116,6 @@ const BookingPage = () => {
                 setBookingData(updatedBooking); // Update displayed data after edit
                 alert("Booking updated successfully!");
             } else {
-                // Create new booking if bookingData is not set
                 await createBooking();
             }
         } catch (error) {
@@ -123,12 +124,8 @@ const BookingPage = () => {
     };
 
     const validateBookingDate = (date: string) => {
-        const today = new Date();
-        const bookingDate = new Date(date);
-        const twoDaysFromNow = new Date();
-        twoDaysFromNow.setDate(today.getDate() + 2);
-
-        return bookingDate >= today && bookingDate <= twoDaysFromNow;
+        const tomorrow = getTomorrowDate();
+        return date === tomorrow;
     };
 
     return (
@@ -159,12 +156,18 @@ const BookingPage = () => {
             )}
 
             <div style={{ marginTop: "20px" }}>
-                <h3>All Booked Time Slots:</h3>
-                <ul>
-                    {allBookedSlots.map((slot, index) => (
-                        <li key={index}>{slot}</li>
-                    ))}
-                </ul>
+                <h3>Available Timeslots for Tomorrow:</h3>
+                {tomorrowSlots.length > 0 ? (
+                    <ul>
+                        {tomorrowSlots.map((time, index) => (
+                            <li key={index}>
+                                <p><strong>Slot Time:</strong> {time}</p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No bookings for tomorrow yet.</p>
+                )}
             </div>
         </div>
     );
