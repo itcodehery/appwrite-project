@@ -27,6 +27,7 @@ const BookingPage = () => {
     const [bookingData, setBookingData] = useState<any>(null);
     const [bookDate, setBookDate] = useState<string>("");
     const [slotTime, setSlotTime] = useState<string>("");
+    const [allBookedSlots, setAllBookedSlots] = useState<string[]>([]); // State for all booked time slots
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -50,7 +51,21 @@ const BookingPage = () => {
                 console.error("Error fetching user data:", error);
             }
         };
+
+        const fetchAllBookedSlots = async () => {
+            try {
+                const allBookings = await databases.listDocuments(databaseId, collectionId);
+
+                // Extract only the slot_time from each booking
+                const slots = allBookings.documents.map((doc: any) => doc.slot_time);
+                setAllBookedSlots(slots); // Update the state with all booked slots
+            } catch (error) {
+                console.error("Error fetching all booked slots:", error);
+            }
+        };
+
         fetchUserData();
+        fetchAllBookedSlots(); // Fetch all booked slots when component mounts
     }, [userId]);
 
     const createBooking = async () => {
@@ -142,6 +157,15 @@ const BookingPage = () => {
                     <p><strong>Booking Date:</strong> {bookingData.booking_date}</p>
                 </div>
             )}
+
+            <div style={{ marginTop: "20px" }}>
+                <h3>All Booked Time Slots:</h3>
+                <ul>
+                    {allBookedSlots.map((slot, index) => (
+                        <li key={index}>{slot}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
