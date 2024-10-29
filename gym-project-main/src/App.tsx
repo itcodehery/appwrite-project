@@ -5,8 +5,9 @@ import Signup from "./pages/Signup";
 import TimeSlotBooking from "./components/ts/TimeSlotBooking";
 import HomePage from "./pages/home";
 import UserHomePage from "./pages/UserHomePage";
-import Admindash from "./pages/admindash"
+import Admindash from "./components/ts/admininfo"
 import Slot from "./pages/Slotbook";
+import ADMINPAGE from "./pages/AdminPage";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
         <Route path="/timeslot" element={<TimeSlotBooking />} />
         <Route path="/admindash" element={<Admindash />} />
         <Route path="/slotbook" element={<Slot />} />
+        <Route path="/adminpage" element={<ADMINPAGE />} />
         
       </Routes>
     </Router>

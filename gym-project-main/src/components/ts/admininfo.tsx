@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import './admindash.css'
+import '../css/admininfo.css'; // Import your styles
 
 // Appwrite client configuration
 const client = new Client();
