@@ -19,7 +19,7 @@ const AdminLayout = () => {
 
   const navigation = [
     { id: 'dashboard', label: 'Dashboard', icon: Layout, component: Dashboard },
-    { id: 'users', label: 'Users', icon: Users, component: UsersComponent },
+    { id: 'users', label: 'memebrship', icon: Users, component: UsersComponent },
     { id: 'analytics', label: 'Analytics', icon: BarChart, component: Analytics },
     { id: 'settings', label: 'Settings', icon: Settings, component: SettingsComponent }
   ];
