@@ -44,7 +44,7 @@ const BookingPage = () => {
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
   const [tomorrowSlots, setTomorrowSlots] = useState<
-    Array<{ start_time: string; end_time: string }>
+    Array<{ time: string; count: number }>
   >([]);
 
   useEffect(() => {
@@ -60,10 +60,17 @@ const BookingPage = () => {
           [Query.equal("booking_date", tomorrow)]
         );
 
-        // Extract slot times for tomorrow's bookings
-        const slots = response.documents.map((booking) => ({
-          start_time: booking.start_time,
-          end_time: booking.end_time,
+        // Count bookings per slot time for tomorrow
+        const slotCounts: { [key: string]: number } = {}; // Define an object to hold counts
+        response.documents.forEach((booking) => {
+          const slot = `${booking.start_time} - ${booking.end_time}`;
+          slotCounts[slot] = (slotCounts[slot] || 0) + 1;
+        });
+
+        // Set tomorrowSlots with counts
+        const slots = Object.entries(slotCounts).map(([time, count]) => ({
+          time,
+          count,
         }));
         setTomorrowSlots(slots);
 
@@ -169,13 +176,11 @@ const BookingPage = () => {
 
   // Data for the Pie Chart
   const pieData = {
-    labels: tomorrowSlots.map(
-      (slot, index) => `Slot ${index + 1}: ${slot.start_time} - ${slot.end_time}`
-    ),
+    labels: tomorrowSlots.map((slot) => slot.time),
     datasets: [
       {
-        label: "Bookings",
-        data: tomorrowSlots.map(() => 1), // Each slot is counted once
+        label: "Number of Bookings",
+        data: tomorrowSlots.map((slot) => slot.count),
         backgroundColor: [
           "#FF6384",
           "#36A2EB",
@@ -227,9 +232,8 @@ const BookingPage = () => {
             {tomorrowSlots.map((slot, index) => (
               <li key={index}>
                 <p>
-                  <strong>Start Time:</strong> {slot.start_time}
-                  {"\n"}
-                  <strong>End Time:</strong> {slot.end_time}
+                  <strong>Time Slot:</strong> {slot.time} <br />
+                  <strong>Number of Bookings:</strong> {slot.count}
                 </p>
               </li>
             ))}
