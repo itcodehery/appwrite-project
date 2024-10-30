@@ -102,9 +102,11 @@ const UserHomePage: React.FC = () => {
           <div className="actions">
             <ActionCard
               action={{
-                title: "Find Gyms in your Area",
+                title: "Detect crowd",
                 subtitle: "Search",
-                onPressed: () => console.log("Find Gyms function"),
+                onPressed: () =>  {
+                  navigate("/todaycrowd");
+                },
               }}
             />
             <ActionCard

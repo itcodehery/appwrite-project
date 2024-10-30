@@ -10,6 +10,7 @@ import Slot from "./pages/Slotbook";
 import ADMINPAGE from "./pages/AdminPage";
 import TrainersSearchPage from "./pages/TrainersSearchPage";
 import LOGINADMIN from "./pages/loginadmin";
+import TODAYCROWD from "./pages/todaycrowd";
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
         <Route path="/adminpage" element={<ADMINPAGE />} />
         <Route path="/trainers" element={<TrainersSearchPage />} />
         <Route path="/loginadmin" element={<LOGINADMIN />} />
+        <Route path="/todaycrowd" element={<TODAYCROWD />} />
       </Routes>
     </Router>
   );
