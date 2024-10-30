@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"; // Import useRef and useEffect
 import { GoogleGenerativeAI } from "@google/generative-ai"; // Import the Gemini API
 import "../css/ChatBox.css"; // Assuming you have your CSS here for styling
+import { marked } from "marked";
 
 // Define the Message interface
 interface Message {
@@ -44,6 +45,7 @@ const Chatbot: React.FC = () => {
         role: "assistant",
         content: result.response.text(), // Get the response text from the model
       };
+      botMessage.content = await marked(botMessage.content);
       setMessages((prev) => [...prev, botMessage]);
       setUserInput("");
     } catch (error) {
@@ -80,8 +82,15 @@ const Chatbot: React.FC = () => {
                 msg.role === "user" ? "user" : "assistant"
               }`}
             >
-              <strong>{msg.role === "user" ? "\nYou" : "\nSpot"}:</strong>{" "}
-              {msg.content}
+              <strong>{msg.role === "user" ? "\nYou" : "\n\nSpot"}:</strong>{" "}
+              {msg.role === "assistant" ? (
+                // Render the assistant's content as HTML with Markdown formatting
+                <div
+                  dangerouslySetInnerHTML={{ __html: marked(msg.content) }}
+                />
+              ) : (
+                msg.content
+              )}
             </div>
           ))}
           <div ref={messagesEndRef} /> {/* Scroll to this element */}

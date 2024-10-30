@@ -42,9 +42,8 @@ const Login: React.FC = () => {
       const user = await account.get();
       setLoggedInUser(user);
       Cookies.set("session", session.$id, { expires: 7 }); // Save session in cookies
-      Cookies.set("userId", user.$id, { expires: 7 }); 
- 
-      
+      Cookies.set("userId", user.$id, { expires: 7 });
+
       navigate("/userhome"); // Navigate to HomePage on successful login
     } catch (error) {
       setErrorMessage("Login failed. Please check your credentials.");
@@ -117,8 +116,8 @@ const Login: React.FC = () => {
 
           <div className="login-options">
             <div>
-            <Link to="/fogotpas">  
-              <a >Forgot password?</a>
+              <Link to="/fogotpas">
+                <a>Forgot password?</a>
               </Link>
             </div>
           </div>
