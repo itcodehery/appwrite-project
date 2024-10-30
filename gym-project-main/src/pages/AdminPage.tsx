@@ -6,12 +6,13 @@ import { BarChart } from 'lucide-react';
 import './AdminLayout.css'; // Import the CSS file
 import Gyminfo from '../components/ts/admininfo'
 import Gymmebership from '../components/ts/gymmembership'
+import TRAINER from '../components/ts/gymtrianer'
 
 
 // Example content components
 const Dashboard = () => <div className="content"><Gyminfo /></div>;
 const UsersComponent = () => <div className="content"><Gymmebership /></div>;
-const Analytics = () => <div className="content"><h2 className="title">Analytics</h2><p className="text">Your avdnalytics data</p></div>;
+const Analytics = () => <div className="content"><TRAINER /></div>;
 const SettingsComponent = () => <div className="content"><h2 className="title">Settings</h2><p className="text">System settings</p></div>;
 
 const AdminLayout = () => {

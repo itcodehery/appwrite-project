@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Client, Databases,  } from 'appwrite';
+import React, { useState, useEffect } from 'react';
+import { Client, Databases } from 'appwrite';
 
 // Initialize Appwrite client
 const client = new Client()
@@ -27,7 +27,6 @@ const DocumentForm: React.FC = () => {
         setIsLoading(true);
         try {
             const response = await database.listDocuments('6704c99a003ba58938df', '6721402b00046052866b');
-            // Type assertion: assuming documents match DocumentData structure
             const fetchedDocuments = response.documents as unknown as DocumentData[];
             setDocuments(fetchedDocuments);
         } catch (error) {
@@ -36,6 +35,11 @@ const DocumentForm: React.FC = () => {
             setIsLoading(false);
         }
     };
+
+    // Fetch documents on component mount
+    useEffect(() => {
+        fetchDocuments();
+    }, []);
 
     // Handle change for individual document fields
     const handleChange = (id: string, name: string, value: string | number | string[]) => {
@@ -52,8 +56,7 @@ const DocumentForm: React.FC = () => {
     const updateDocument = async (id: string) => {
         const documentToUpdate = documents.find((doc) => doc.$id === id);
         if (!documentToUpdate) return;
-    
-        // Prepare only the fields to be updated
+
         const updatedData = {
             duration: documentToUpdate.duration,
             price: documentToUpdate.price,
@@ -61,7 +64,7 @@ const DocumentForm: React.FC = () => {
             description: documentToUpdate.description,
             benefits: documentToUpdate.benefits,
         };
-    
+
         try {
             await database.updateDocument(
                 '6704c99a003ba58938df',           // Database ID
@@ -74,50 +77,49 @@ const DocumentForm: React.FC = () => {
             console.error('Error updating document:', error);
         }
     };
-    
 
     return (
         <div>
-            <button onClick={fetchDocuments} disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Fetch Documents'}
-            </button>
-
-            {documents.map((doc) => (
-                <div key={doc.$id} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
-                    <input
-                        type="text"
-                        value={doc.duration}
-                        onChange={(e) => handleChange(doc.$id, 'duration', e.target.value)}
-                        placeholder="Duration"
-                    />
-                    <input
-                        type="number"
-                        value={doc.price}
-                        onChange={(e) => handleChange(doc.$id, 'price', e.target.value)}
-                        placeholder="Price"
-                    />
-                    <input
-                        type="text"
-                        value={doc.title}
-                        onChange={(e) => handleChange(doc.$id, 'title', e.target.value)}
-                        placeholder="Title"
-                    />
-                    <textarea
-                        value={doc.description}
-                        onChange={(e) => handleChange(doc.$id, 'description', e.target.value)}
-                        placeholder="Description"
-                    />
-                    <input
-                        type="text"
-                        value={doc.benefits.join(', ')}
-                        onChange={(e) =>
-                            handleChange(doc.$id, 'benefits', e.target.value.split(',').map((b) => b.trim()))
-                        }
-                        placeholder="Benefits (comma-separated)"
-                    />
-                    <button onClick={() => updateDocument(doc.$id)}>Update Document</button>
-                </div>
-            ))}
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                documents.map((doc) => (
+                    <div key={doc.$id} style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
+                        <input
+                            type="text"
+                            value={doc.duration}
+                            onChange={(e) => handleChange(doc.$id, 'duration', e.target.value)}
+                            placeholder="Duration"
+                        />
+                        <input
+                            type="number"
+                            value={doc.price}
+                            onChange={(e) => handleChange(doc.$id, 'price', e.target.value)}
+                            placeholder="Price"
+                        />
+                        <input
+                            type="text"
+                            value={doc.title}
+                            onChange={(e) => handleChange(doc.$id, 'title', e.target.value)}
+                            placeholder="Title"
+                        />
+                        <textarea
+                            value={doc.description}
+                            onChange={(e) => handleChange(doc.$id, 'description', e.target.value)}
+                            placeholder="Description"
+                        />
+                        <input
+                            type="text"
+                            value={doc.benefits.join(', ')}
+                            onChange={(e) =>
+                                handleChange(doc.$id, 'benefits', e.target.value.split(',').map((b) => b.trim()))
+                            }
+                            placeholder="Benefits (comma-separated)"
+                        />
+                        <button onClick={() => updateDocument(doc.$id)}>Update Document</button>
+                    </div>
+                ))
+            )}
         </div>
     );
 };
