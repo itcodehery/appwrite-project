@@ -5,9 +5,10 @@ import Signup from "./pages/Signup";
 import TimeSlotBooking from "./components/ts/TimeSlotBooking";
 import HomePage from "./pages/home";
 import UserHomePage from "./pages/UserHomePage";
-import Admindash from "./components/ts/admininfo"
+import Admindash from "./components/ts/admininfo";
 import Slot from "./pages/Slotbook";
 import ADMINPAGE from "./pages/AdminPage";
+import TrainersSearchPage from "./pages/TrainersSearchPage";
 
 const App: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const App: React.FC = () => {
         <Route path="/admindash" element={<Admindash />} />
         <Route path="/slotbook" element={<Slot />} />
         <Route path="/adminpage" element={<ADMINPAGE />} />
-        
+        <Route path="/trainers" element={<TrainersSearchPage />} />
       </Routes>
     </Router>
   );

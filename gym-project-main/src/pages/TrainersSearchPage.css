@@ -1,0 +1,59 @@
+.main-trainers {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.trainers-banner {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    gap: 4px;
+    align-items:start;
+    padding: 20px;
+    height: 200px;
+    background-image: url("https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+.list-item-trainers-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    text-transform: capitalize;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+    color:rgb(131, 131, 131);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.list-item-trainers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    text-transform: capitalize;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: rgb(41, 41, 41);
+    border: 1px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.list-item-trainers:hover {
+    background-color: #454300;
+    
+}
+
+.list-item-trainers:active {
+    scale: 0.95;
+}
