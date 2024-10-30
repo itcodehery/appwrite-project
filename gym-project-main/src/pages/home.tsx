@@ -7,6 +7,7 @@ import AppBar from "../components/ts/AppBar.tsx";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
+import Adminpic from "../assets/images/Adminrole.png";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate(); // Initialize useNavigate for routing
@@ -42,6 +43,10 @@ const HomePage: React.FC = () => {
       <AppBar is_for_user={false} />
 
       {/* Hero Section with animated image */}
+      
+      <div className="admin" onClick={() => navigate("/adminpage")}>
+        <img src={Adminpic} alt="hero" />
+      </div>
       <section className="hi">
         <div>
           <h2 className="hi-text">
