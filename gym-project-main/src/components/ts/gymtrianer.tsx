@@ -83,6 +83,20 @@ const TrainerForm: React.FC = () => {
         }
     };
 
+    const deleteTrainer = async (trainerId: string) => {
+        setIsLoading(true);
+        try {
+            await database.deleteDocument('6704c99a003ba58938df', '6721ae03002c0583966b', trainerId);
+            alert('Trainer deleted successfully!');
+            fetchTrainers(); // Refresh the trainers list after deletion
+        } catch (error) {
+            console.error('Error deleting trainer:', error);
+            alert('Failed to delete trainer');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const clearForm = () => {
         setName('');
         setExpertise('');
@@ -144,6 +158,7 @@ const TrainerForm: React.FC = () => {
                     <li key={trainer.$id}>
                         <span>{trainer.name}</span>
                         <button onClick={() => editTrainer(trainer)}>Edit</button>
+                        <button onClick={() => deleteTrainer(trainer.$id)}>Delete</button>
                     </li>
                 ))}
             </ul>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import "./Signup.css"; // Import your styles
-import Image from "../assets/images/white.png"; // Ensure this path is correct
-import { account, ID } from "../helpers/appwrite"; // Import Appwrite account and ID
-import Cookies from "js-cookie"; // Import Cookies for setting user data
+import { Link, useNavigate } from "react-router-dom"; 
+import "./Signup.css"; 
+import Image from "../assets/images/white.png"; 
+import { account, ID } from "../helpers/appwrite"; 
+import Cookies from "js-cookie"; 
 
 const Signup: React.FC = () => {
   const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const navigate = useNavigate(); // Initialize useNavigate for routing
+  const navigate = useNavigate(); 
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,43 +27,41 @@ const Signup: React.FC = () => {
       return;
     }
 
-    setIsSubmitting(true); // Indicate submission
-    setErrorMessage(""); // Clear previous errors
+    setIsSubmitting(true);
+    setErrorMessage("");
 
     try {
       // Create a new user with Appwrite
       await account.create(ID.unique(), email, password, name);
 
-      // After successful signup, log the user in and navigate to HomePage
-      await account.createEmailPasswordSession(email, password);
-
-      // Create a session
-      const session = await account.createSession(email, password);
+      // After successful signup, log the user in and create a session
+      const session = await account.createEmailPasswordSession(email, password);
 
       // Save the user in cookies
       Cookies.set("session", session.$id, { expires: 7 });
+
       // Navigate to home
       navigate("/userhome");
     } catch (error) {
       setErrorMessage("Signup failed. Please try again.");
-      console.error(error); // Log the error for debugging
+      console.error(error);
     } finally {
-      setIsSubmitting(false); // Reset submitting state
+      setIsSubmitting(false);
     }
   };
 
   const checkSession = async () => {
     try {
-      // Retrieve session from cookies
       const sessionId = Cookies.get("session");
 
       if (sessionId) {
-        // Get the current session data from Appwrite
-        const session = await account.getSession(sessionId);
-
-        console.log("Session valid:", session);
-        // Navigate to home
-        navigate("/userhome");
+        // Check if session is active without specifying session ID
+        const currentSession = await account.get();
+        
+        if (currentSession) {
+          console.log("Session valid:", currentSession);
+          navigate("/userhome");
+        }
       } else {
         console.log("No active session found");
       }
@@ -73,7 +71,6 @@ const Signup: React.FC = () => {
   };
 
   useEffect(() => {
-    // Check for existing session when the component mounts
     checkSession();
   }, []);
 
@@ -88,7 +85,6 @@ const Signup: React.FC = () => {
         <h2>Create an account</h2>
         <p>Please fill in the details below.</p>
 
-        {/* Display error message */}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <form onSubmit={handleSignup}>
@@ -139,7 +135,7 @@ const Signup: React.FC = () => {
           <button
             type="submit"
             className="signup-btn"
-            disabled={isSubmitting} // Disable the button while submitting
+            disabled={isSubmitting}
           >
             {isSubmitting ? "Signing Up..." : "Sign Up"}
           </button>
@@ -150,7 +146,6 @@ const Signup: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Right side where you can add your own image */}
       <motion.div
         className="signup-image-container"
         initial={{ x: 100, opacity: 0 }}
