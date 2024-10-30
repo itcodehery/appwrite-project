@@ -93,8 +93,7 @@ const UserHomePage: React.FC = () => {
                     Contact Gym
                   </button>
                   <Link to="/slotbook" className="action">
-          
-                  <button className="main-but-pri">Check for Slots</button>
+                    <button className="main-but-pri">Check for Slots</button>
                   </Link>
                 </div>
               </div>
@@ -112,7 +111,9 @@ const UserHomePage: React.FC = () => {
               action={{
                 title: "Book a Personalized Trainer",
                 subtitle: "Online Mentor",
-                onPressed: () => console.log("Book Trainer function"),
+                onPressed: () => {
+                  navigate("/trainers");
+                },
               }}
             />
           </div>
