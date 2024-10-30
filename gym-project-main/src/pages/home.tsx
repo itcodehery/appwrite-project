@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
 import Adminpic from "../assets/images/Adminrole.png";
 
+
 const HomePage: React.FC = () => {
   const navigate = useNavigate(); // Initialize useNavigate for routing
 
@@ -44,7 +45,7 @@ const HomePage: React.FC = () => {
 
       {/* Hero Section with animated image */}
       
-      <div className="admin" onClick={() => navigate("/adminpage")}>
+      <div className="admin" onClick={() => navigate("/loginadmin")}>
         <img src={Adminpic} alt="hero" />
       </div>
       <section className="hi">
