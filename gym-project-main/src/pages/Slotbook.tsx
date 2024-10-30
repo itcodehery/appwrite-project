@@ -11,6 +11,11 @@ import {
   Query,
 } from "appwrite";
 import AppBar from "../components/ts/AppBar";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Register Chart.js elements
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 // Initialize the Appwrite client
 const client = new Client()
@@ -162,6 +167,28 @@ const BookingPage = () => {
     return date === tomorrow;
   };
 
+  // Data for the Pie Chart
+  const pieData = {
+    labels: tomorrowSlots.map(
+      (slot, index) => `Slot ${index + 1}: ${slot.start_time} - ${slot.end_time}`
+    ),
+    datasets: [
+      {
+        label: "Bookings",
+        data: tomorrowSlots.map(() => 1), // Each slot is counted once
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#FF9F40",
+          "#4BC0C0",
+          "#9966FF",
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
   return (
     <div className="main-wrap-slots">
       <AppBar is_for_user={true} />
@@ -226,6 +253,10 @@ const BookingPage = () => {
           </p>
         </div>
       )}
+      <div className="chart-container" style={{ width: "50%", height: "50%" }}>
+        <h3>Bookings for Tomorrow:</h3>
+        <Pie data={pieData} />
+      </div>
     </div>
   );
 };
