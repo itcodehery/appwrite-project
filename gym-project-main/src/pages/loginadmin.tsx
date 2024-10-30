@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./Login.css"; // Import your styles
 import Image from "../assets/images/White.png"; // Ensure this path is correct
@@ -16,6 +16,21 @@ const AdminLogin: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+  // Check if a session already exists
+  const checkSession = async () => {
+    try {
+      const user = await account.get();
+      setLoggedInUser(user);
+      // Redirect to ADMINPAGE if already logged in
+    } catch (error) {
+      // No session exists; do nothing
+    }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   // Basic form validation
   const validateForm = () => {
