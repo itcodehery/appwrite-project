@@ -7,12 +7,13 @@ import TRAINER from '../components/ts/gymtrianer';
 import { account } from '../helpers/appwrite.ts'; // Import account from Appwrite
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import MANAGESLOT from '../components/ts/manageslotadmin.tsx';
 
 // Example content components
 const Dashboard = () => <div className="content"><Gyminfo /></div>;
 const UsersComponent = () => <div className="content"><Gymmebership /></div>;
 const Analytics = () => <div className="content"><TRAINER /></div>;
-const SettingsComponent = () => <div className="content"><h2 className="title">Settings</h2><p className="text">System settings</p></div>;
+const SettingsComponent = () => <div className="content"><MANAGESLOT /></div>;
 
 const AdminLayout = () => {
   const [activeComponent, setActiveComponent] = useState('dashboard');
@@ -22,7 +23,7 @@ const AdminLayout = () => {
     { id: 'dashboard', label: 'Dashboard', icon: Layout, component: Dashboard },
     { id: 'users', label: 'Membership', icon: Users, component: UsersComponent },
     { id: 'analytics', label: 'Analytics', icon: BarChart, component: Analytics },
-    { id: 'settings', label: 'Settings', icon: Settings, component: SettingsComponent }
+    { id: 'settings', label: 'Manage slot', icon: Settings, component: SettingsComponent }
   ];
 
   const ActiveComponent = navigation.find(nav => nav.id === activeComponent)?.component || Dashboard;
