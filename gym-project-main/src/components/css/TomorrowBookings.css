@@ -1,0 +1,50 @@
+/* TomorrowBookings.css */
+
+.container {
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.heading {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.bookings-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.booking-text {
+    color: black;
+    font-size: 14px;
+}
+
+.delete-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}

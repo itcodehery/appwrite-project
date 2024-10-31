@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {  Query, Models } from 'appwrite';
-import {databases} from "../../helpers/appwrite"; // Import account from Appwrite
-
+import { Query, Models } from 'appwrite';
+import { databases } from "../../helpers/appwrite";
+import '../css/TomorrowBookings.css'; // Import the CSS file
 
 // Define the Booking interface
 interface Booking {
@@ -13,11 +13,8 @@ interface Booking {
     end_time: string;
 }
 
-// Appwrite client initialization
-
-
-const DATABASE_ID = '6704c99a003ba58938df'; // Replace with your actual database ID
-const COLLECTION_ID = '6714e5bd0032f6416f89'; // Collection ID provided
+const DATABASE_ID = '6704c99a003ba58938df';
+const COLLECTION_ID = '6714e5bd0032f6416f89';
 
 const TomorrowBookings: React.FC = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
@@ -27,7 +24,7 @@ const TomorrowBookings: React.FC = () => {
         const fetchBookings = async () => {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
-            const tomorrowDate = tomorrow.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            const tomorrowDate = tomorrow.toISOString().split('T')[0];
 
             try {
                 const response = await databases.listDocuments(
@@ -36,9 +33,8 @@ const TomorrowBookings: React.FC = () => {
                     [Query.equal('booking_date', tomorrowDate)]
                 );
 
-                // Map the response to Booking type
                 const bookingsData = response.documents.map((doc: Models.Document) => ({
-                    id: doc.$id, // Appwrite Document ID
+                    id: doc.$id,
                     user_id: doc.user_id,
                     gym_id: doc.gym_id,
                     booking_date: doc.booking_date,
@@ -67,14 +63,16 @@ const TomorrowBookings: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1 style={{ color: 'black' }}>Tomorrow's Bookings</h1>
-            {error && <p style={{ color: 'black' }}>{error}</p>}
-            <ul>
+        <div className="container">
+            <h1 className="heading">Tomorrow's Bookings</h1>
+            {error && <p className="error">{error}</p>}
+            <ul className="bookings-list">
                 {bookings.map(booking => (
-                    <li  key={booking.id}>
-                        <span style={{ color: 'black' }}>Name: {booking.user_id}, Slot: {booking.start_time} - {booking.end_time}</span>
-                        <button onClick={() => deleteBooking(booking.id)}>Delete</button>
+                    <li key={booking.id} className="booking-item">
+                        <span className="booking-text">
+                            Name: {booking.user_id}, Slot: {booking.start_time} - {booking.end_time}
+                        </span>
+                        <button className="delete-button" onClick={() => deleteBooking(booking.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
