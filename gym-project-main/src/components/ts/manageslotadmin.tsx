@@ -68,12 +68,12 @@ const TomorrowBookings: React.FC = () => {
 
     return (
         <div>
-            <h1>Tomorrow's Bookings</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <h1 style={{ color: 'black' }}>Tomorrow's Bookings</h1>
+            {error && <p style={{ color: 'black' }}>{error}</p>}
             <ul>
                 {bookings.map(booking => (
-                    <li key={booking.id}>
-                        <span>Name: {booking.user_id}, Slot: {booking.start_time} - {booking.end_time}</span>
+                    <li  key={booking.id}>
+                        <span style={{ color: 'black' }}>Name: {booking.user_id}, Slot: {booking.start_time} - {booking.end_time}</span>
                         <button onClick={() => deleteBooking(booking.id)}>Delete</button>
                     </li>
                 ))}
