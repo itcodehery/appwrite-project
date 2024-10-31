@@ -9,7 +9,8 @@ import Cookies from "js-cookie";
 import ADMINPAGE from "./AdminPage.tsx";
 
 const AdminLogin: React.FC = () => {
-  const [loggedInUser, setLoggedInUser] = useState<Models.User<Models.Preferences> | null>(null);
+  const [loggedInUser, setLoggedInUser] =
+    useState<Models.User<Models.Preferences> | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -85,7 +86,7 @@ const AdminLogin: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2>Admin Login</h2>
+        <h2>Login as Admin</h2>
         <p>Please enter your admin credentials.</p>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -113,11 +114,7 @@ const AdminLogin: React.FC = () => {
             <label>Password</label>
           </div>
 
-          <button
-            type="submit"
-            className="login-btn"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="login-btn" disabled={isSubmitting}>
             {isSubmitting ? "Logging in..." : "Log In"}
           </button>
         </form>
