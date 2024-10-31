@@ -7,68 +7,99 @@ import {
   Typography,
   Container,
   Box,
+  Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import '../css/admininfo.css'; // Import your styles
+import "../css/admininfo.css";
+
+// Define type for gym data
+interface GymData {
+  gymName: string;
+  isOpen: boolean;
+  city: string;
+  openingTime: string;
+  closingTime: string;
+  managerName: string;
+  managerEmail: string;
+}
 
 // Appwrite client configuration
 const client = new Client();
 client
-  .setEndpoint("YOUR_APPWRITE_ENDPOINT") // Replace with your Appwrite endpoint
-  .setProject("YOUR_PROJECT_ID"); // Replace with your project ID
+  .setEndpoint("https://cloud.appwrite.io/v1") // Appwrite endpoint
+  .setProject("6700b592001d71931ab9"); // Project ID
 
 const databases = new Databases(client);
 
 const AddGym: React.FC = () => {
-  const [gymName, setGymName] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [openingTime, setOpeningTime] = useState("");
-  const [closingTime, setClosingTime] = useState("");
-  const [managerName, setManagerName] = useState("");
-  const [managerEmail, setManagerEmail] = useState("");
+  const [gymData, setGymData] = useState<GymData>({
+    gymName: "",
+    isOpen: false,
+    city: "",
+    openingTime: "",
+    closingTime: "",
+    managerName: "",
+    managerEmail: "",
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const [alertOpen, setAlertOpen] = useState(false); // Alert visibility state
 
+  // Define field names for gymData
+  type Field = keyof GymData;
+
+  const handleChange = (field: Field) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGymData((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleRetrieve = async () => {
     try {
-      // Replace 'YOUR_DATABASE_ID' and 'YOUR_COLLECTION_ID' with your actual database and collection IDs
-      const response = await databases.createDocument(
-        'YOUR_DATABASE_ID',
-        'YOUR_COLLECTION_ID',
-        'unique()',
-        {
-          gymName,
-          isOpen,
-          address,
-          city,
-          openingTime,
-          closingTime,
-          managerName,
-          managerEmail,
-        }
+      const response = await databases.getDocument(
+        "6704c99a003ba58938df",
+        "67125e450014869460e4",
+        "67125f1d0039d3faf9dc"
       );
-      console.log('Gym added successfully:', response);
-      // Optionally reset the form fields or show a success message
-      setGymName('');
-      setIsOpen(false);
-      setAddress('');
-      setCity('');
-      setOpeningTime('');
-      setClosingTime('');
-      setManagerName('');
-      setManagerEmail('');
+      setGymData({
+        gymName: response.gym_name,
+        isOpen: response.is_open,
+        city: response.city,
+        openingTime: response.open_time,
+        closingTime: response.close_time,
+        managerName: response.manager_name,
+        managerEmail: response.manager_email,
+      });
     } catch (error) {
-      console.error('Error adding gym:', error);
-      // Optionally show an error message
+      console.error("Error retrieving gym data:", error);
     }
   };
 
-  // Animation variants
-  const inputVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await databases.updateDocument(
+        "6704c99a003ba58938df",
+        "67125e450014869460e4",
+        "67125f1d0039d3faf9dc",
+        {
+          gym_name: gymData.gymName,
+          is_open: gymData.isOpen,
+          city: gymData.city,
+          open_time: gymData.openingTime,
+          close_time: gymData.closingTime,
+          manager_name: gymData.managerName,
+          manager_email: gymData.managerEmail,
+        }
+      );
+      console.log("Gym details updated successfully:", response);
+      setAlertOpen(true); // Show alert when update is successful
+    } catch (error) {
+      console.error("Error updating gym details:", error);
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false); // Close alert when dismissed
   };
 
   return (
@@ -79,59 +110,25 @@ const AddGym: React.FC = () => {
           p: 4,
           borderRadius: 2,
           boxShadow: 3,
-          bgcolor: "#1F1F1F", // Dark background color
+          bgcolor: "#1F1F1F",
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom sx={{ color: '#fff' }}>
+        <Typography variant="h4" align="center" gutterBottom sx={{ color: "#fff" }}>
           GYM
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <Button variant="contained" onClick={handleRetrieve} sx={{ mb: 2 }}>
+          Load Gym Details
+        </Button>
+        <form onSubmit={handleUpdate}>
           {[
-            {
-              label: "Gym Name",
-              value: gymName,
-              setter: setGymName,
-              type: "text",
-            },
-            {
-              label: "Address",
-              value: address,
-              setter: setAddress,
-              type: "text",
-            },
-            { label: "City", value: city, setter: setCity, type: "text" },
-            {
-              label: "Opening Time",
-              value: openingTime,
-              setter: setOpeningTime,
-              type: "time",
-            },
-            {
-              label: "Closing Time",
-              value: closingTime,
-              setter: setClosingTime,
-              type: "time",
-            },
-            {
-              label: "Manager Name",
-              value: managerName,
-              setter: setManagerName,
-              type: "text",
-            },
-            {
-              label: "Manager Email",
-              value: managerEmail,
-              setter: setManagerEmail,
-              type: "email",
-            },
-          ].map(({ label, value, setter, type }, index) => (
-            <motion.div
-              key={index}
-              variants={inputVariants}
-              initial="hidden"
-              animate="visible"
-              style={{ marginBottom: "16px" }}
-            >
+            { label: "Gym Name", value: gymData.gymName, field: "gymName", type: "text" },
+            { label: "City", value: gymData.city, field: "city", type: "text" },
+            { label: "Opening Time", value: gymData.openingTime, field: "openingTime", type: "time" },
+            { label: "Closing Time", value: gymData.closingTime, field: "closingTime", type: "time" },
+            { label: "Manager Name", value: gymData.managerName, field: "managerName", type: "text" },
+            { label: "Manager Email", value: gymData.managerEmail, field: "managerEmail", type: "email" },
+          ].map(({ label, value, field, type }, index) => (
+            <motion.div key={index} style={{ marginBottom: "16px" }}>
               <TextField
                 fullWidth
                 label={label}
@@ -140,59 +137,45 @@ const AddGym: React.FC = () => {
                 InputLabelProps={{
                   sx: {
                     color: "#fff",
-                    "&.Mui-focused": {
-                      color: "#f50057", // Change focused label color to red
-                    },
+                    "&.Mui-focused": { color: "#f50057" },
                   },
                 }}
                 InputProps={{
                   sx: {
-                    bgcolor: '#2E2E2E', // Input background color
+                    bgcolor: "#2E2E2E",
                     "&.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#ccc",
                     },
                     "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#f50057",
                     },
-                    // Add styles for the text type specifically
-                    '& input': {
-                     color:'white',
-                      padding: '14px', // Padding
+                    "& input": {
+                      color: "white",
+                      padding: "14px",
                     },
                   },
                 }}
                 value={value}
-                onChange={(e) => setter(e.target.value)}
+                onChange={handleChange(field as Field)}
                 required
               />
             </motion.div>
           ))}
-          <motion.div
-            variants={inputVariants}
-            initial="hidden"
-            animate="visible"
-            style={{ marginBottom: "16px" }}
-          >
+          <motion.div style={{ marginBottom: "16px" }}>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={isOpen}
-                  onChange={(e) => setIsOpen(e.target.checked)}
-                  sx={{
-                    color: "#f50057",
-                    "&.Mui-checked": { color: "#f50057" },
-                  }}
+                  checked={gymData.isOpen}
+                  onChange={(e) =>
+                    setGymData((prev) => ({ ...prev, isOpen: e.target.checked }))
+                  }
+                  sx={{ color: "#f50057", "&.Mui-checked": { color: "#f50057" } }}
                 />
               }
               label={<Typography sx={{ color: "#fff" }}>Is Open</Typography>}
             />
           </motion.div>
-          <motion.div
-            variants={inputVariants}
-            initial="hidden"
-            animate="visible"
-            style={{ marginTop: "16px" }}
-          >
+          <motion.div style={{ marginTop: "16px" }}>
             <motion.button
               type="submit"
               style={{
@@ -209,11 +192,22 @@ const AddGym: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Add Gym Details
+              Update Gym Details
             </motion.button>
           </motion.div>
         </form>
       </Box>
+      
+      {/* Snackbar for Success Alert */}
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+      >
+        <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+          Gym details updated successfully!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
