@@ -78,7 +78,7 @@ const theme = createTheme({
     },
 });
 
-
+// Styled components
 const StyledForm = styled(Card)(({ theme }) => ({
     padding: theme.spacing(3),
     marginBottom: theme.spacing(4),
@@ -322,7 +322,7 @@ const TrainerForm: React.FC = () => {
                             >
                                 <CardContent sx={{ width: '100%' }}>
                                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                                        <Typography variant="h6">{trainer.name}</Typography>
+                                        <Typography variant="h6" color="text.primary">{trainer.name}</Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {trainer.expertise}
                                         </Typography>
