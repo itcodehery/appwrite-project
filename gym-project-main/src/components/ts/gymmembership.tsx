@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Client, Databases } from 'appwrite';
+import {databases} from "../../helpers/appwrite"; // Import account from Appwrite
 
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject('6700b592001d71931ab9');
 
-const database = new Databases(client);
+
 
 interface DocumentData {
     $id: string;
@@ -23,7 +20,7 @@ const DocumentForm: React.FC = () => {
     const fetchDocuments = async () => {
         setIsLoading(true);
         try {
-            const response = await database.listDocuments('6704c99a003ba58938df', '6721402b00046052866b');
+            const response = await databases.listDocuments('6704c99a003ba58938df', '6721402b00046052866b');
             const fetchedDocuments = response.documents as unknown as DocumentData[];
             setDocuments(fetchedDocuments);
         } catch (error) {
@@ -60,7 +57,7 @@ const DocumentForm: React.FC = () => {
         };
 
         try {
-            await database.updateDocument(
+            await databases.updateDocument(
                 '6704c99a003ba58938df',
                 '6721402b00046052866b',
                 id,

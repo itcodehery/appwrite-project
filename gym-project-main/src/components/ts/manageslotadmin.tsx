@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Client, Databases, Query, Models } from 'appwrite';
+import {  Query, Models } from 'appwrite';
+import {databases} from "../../helpers/appwrite"; // Import account from Appwrite
+
 
 // Define the Booking interface
 interface Booking {
@@ -12,11 +14,8 @@ interface Booking {
 }
 
 // Appwrite client initialization
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') // Appwrite endpoint
-    .setProject('6700b592001d71931ab9'); // Replace with your actual project ID
 
-const databases = new Databases(client);
+
 const DATABASE_ID = '6704c99a003ba58938df'; // Replace with your actual database ID
 const COLLECTION_ID = '6714e5bd0032f6416f89'; // Collection ID provided
 

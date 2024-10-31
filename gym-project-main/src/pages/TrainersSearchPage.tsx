@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./TrainersSearchPage.css";
 import AppBar from "../components/ts/AppBar";
-import { Databases, Client } from "appwrite";
+import {databases} from "../helpers/appwrite"; // Import account from Appwrite
+
 import { LucideArrowRightCircle } from "lucide-react";
 const TrainersSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
-    .setProject("6700b592001d71931ab9"); // Replace with your project ID
-  // Initialize Database
-  const database = new Databases(client);
+  
 
   useEffect(() => {
     fetchTrainers();
@@ -21,7 +18,7 @@ const TrainersSearchPage: React.FC = () => {
   const fetchTrainers = async () => {
     setIsLoading(true);
     try {
-      const response = await database.listDocuments(
+      const response = await databases.listDocuments(
         "6704c99a003ba58938df",
         "6721ae03002c0583966b"
       ); // Replace with your collection ID

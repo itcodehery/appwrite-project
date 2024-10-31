@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Client, Databases } from 'appwrite';
+import {databases} from "../../helpers/appwrite"; // Import account from Appwrite
+
 import { 
     Box, 
     Container,
     TextField,
     Button,
     Typography,
-    Paper,
+   
     List,
     ListItem,
     IconButton,
@@ -36,11 +37,7 @@ import {
 } from '@mui/icons-material';
 
 // Initialize Appwrite client
-const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject('6700b592001d71931ab9');
 
-const database = new Databases(client);
 
 // Custom theme
 const theme = createTheme({
@@ -113,7 +110,7 @@ const TrainerForm: React.FC = () => {
     const fetchTrainers = async () => {
         setIsLoading(true);
         try {
-            const response = await database.listDocuments(
+            const response = await databases.listDocuments(
                 '6704c99a003ba58938df',
                 '6721ae03002c0583966b'
             );
@@ -147,14 +144,14 @@ const TrainerForm: React.FC = () => {
 
         try {
             if (trainerId) {
-                await database.updateDocument(
+                await databases.updateDocument(
                     '6704c99a003ba58938df',
                     '6721ae03002c0583966b',
                     trainerId,
                     trainerData
                 );
             } else {
-                await database.createDocument(
+                await databases.createDocument(
                     '6704c99a003ba58938df',
                     '6721ae03002c0583966b',
                     'unique()',
@@ -180,7 +177,7 @@ const TrainerForm: React.FC = () => {
 
         setIsLoading(true);
         try {
-            await database.deleteDocument(
+            await databases.deleteDocument(
                 '6704c99a003ba58938df',
                 '6721ae03002c0583966b',
                 trainerToDelete

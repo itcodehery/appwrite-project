@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Client, Databases, Query } from "appwrite";
+import {  Query } from "appwrite";
+import {databases} from "../helpers/appwrite"; // Import account from Appwrite
+
 import { Pie } from "react-chartjs-2"; // Import the Pie component from react-chartjs-2
 import {
     Chart as ChartJS,
@@ -11,13 +13,7 @@ import {
     LinearScale,
 } from "chart.js";
 
-// Initialize the Appwrite client
-const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1")
-    .setProject("6700b592001d71931ab9");
 
-// Create a Databases instance
-const databases = new Databases(client);
 
 // Register necessary components for Chart.js
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);

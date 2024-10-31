@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Client, Databases } from "appwrite";
+import {databases} from "../../helpers/appwrite"; // Import account from Appwrite
+
 import {
   TextField,
   Checkbox,
@@ -78,12 +79,7 @@ const FormContainer = styled(Paper)(({ theme }) => ({
 }));
 
 // Appwrite client configuration
-const client = new Client();
-client
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("6700b592001d71931ab9");
 
-const databases = new Databases(client);
 
 const GymManager = () => {
   const [gymData, setGymData] = useState<GymData>({
