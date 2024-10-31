@@ -256,11 +256,9 @@ const BookingPage = () => {
         ) : (
           <p>No bookings for tomorrow yet.</p>
         )}
-      </div>
-     
-      <div className="chart-container" >
-        <h3>Pie Chart representation:</h3>
-        <Pie data={pieData} />
+        <div className="chart-container">
+          <Pie data={pieData} style={{ scale: "0.8" }} />
+        </div>
       </div>
     </div>
   );
