@@ -17,6 +17,7 @@
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.2",
     "@mui/styles": "^6.1.2",
+    "@radix-ui/react-slot": "^1.1.0",
     "@types/styled-components": "^5.1.34",
     "appwrite": "^16.0.2",
     "axios": "^1.7.7",
