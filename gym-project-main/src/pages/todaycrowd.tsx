@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {  Query } from "appwrite";
-import {databases} from "../helpers/appwrite"; // Import account from Appwrite
-
-import { Pie } from "react-chartjs-2"; // Import the Pie component from react-chartjs-2
+import { Query } from "appwrite";
+import { databases } from "../helpers/appwrite"; 
+import "./today.css";
+import { Pie } from "react-chartjs-2"; 
+import { motion } from "framer-motion"; // Import Framer Motion
 import {
     Chart as ChartJS,
     Title,
@@ -13,9 +14,6 @@ import {
     LinearScale,
 } from "chart.js";
 
-
-
-// Register necessary components for Chart.js
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 
 const BookingList = () => {
@@ -25,23 +23,21 @@ const BookingList = () => {
 
     useEffect(() => {
         const fetchBookings = async () => {
-            const today = new Date().toISOString().split('T')[0]; // e.g., '2024-10-30'
+            const today = new Date().toISOString().split('T')[0];
 
             try {
                 const response = await databases.listDocuments(
-                    "6704c99a003ba58938df", // Database ID
-                    "6714e5bd0032f6416f89", // Collection ID
-                    [Query.equal('booking_date', today)] // Query for today's bookings
+                    "6704c99a003ba58938df",
+                    "6714e5bd0032f6416f89",
+                    [Query.equal('booking_date', today)]
                 );
 
-                // Initialize an object to count bookings by time
                 const bookingsMap: { [key: string]: { start_time: string; end_time: string; count: number } } = {};
 
                 response.documents.forEach(booking => {
                     const { start_time, end_time } = booking;
                     const key = `${start_time}-${end_time}`;
 
-                    // Count bookings for each start and end time combination
                     if (bookingsMap[key]) {
                         bookingsMap[key].count++;
                     } else {
@@ -49,7 +45,6 @@ const BookingList = () => {
                     }
                 });
 
-                // Convert the bookingsMap to an array for easier rendering
                 setBookings(Object.values(bookingsMap));
             } catch (error) {
                 setError("Error retrieving bookings: " + (error as Error).message);
@@ -61,7 +56,6 @@ const BookingList = () => {
         fetchBookings();
     }, []);
 
-    // Prepare data for Pie Chart
     const chartData = {
         labels: bookings.map(({ start_time, end_time }) => `${start_time} - ${end_time}`),
         datasets: [
@@ -80,29 +74,33 @@ const BookingList = () => {
         ],
     };
 
-    // Render loading state
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    // Render error state
     if (error) {
         return <div>{error}</div>;
     }
 
-    // Render bookings count with start and end times
     return (
-        <div>
+        <div className="person">
             <h2>Bookings for Today</h2>
-            <div  style={{ width: '30%', height: '20%', margin: '0 auto' }}>
-            <Pie data={chartData} /> {/* Render Pie Chart */}
-            <ul>
-                {bookings.map(({ start_time, end_time, count }) => (
-                    <li key={`${start_time}-${end_time}`}>
-                        {start_time} to {end_time}: {count} {count > 1 ? "people" : "person"} booked
-                    </li>
-                ))}
-            </ul>
+            <motion.div className="pie" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+                <Pie data={chartData} />
+            </motion.div>
+            <div className="personlist">
+                <ul>
+                    {bookings.map(({ start_time, end_time, count }, index) => (
+                        <motion.li 
+                            key={`${start_time}-${end_time}`}
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                        >
+                            {index + 1}. {start_time} to {end_time}: {count} {count > 1 ? "people" : "person"} booked
+                        </motion.li>
+                    ))}
+                </ul>
             </div>
         </div>
     );

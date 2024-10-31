@@ -225,23 +225,6 @@ const BookingPage = () => {
           <button onClick={logOut}>Log Out</button>
         </div>
       </div>
-      <div className="booking-deets">
-        <h3>Available Timeslots for Tomorrow:</h3>
-        {tomorrowSlots.length > 0 ? (
-          <ul>
-            {tomorrowSlots.map((slot, index) => (
-              <li key={index}>
-                <p>
-                  <strong>Time Slot:</strong> {slot.time} <br />
-                  <strong>Number of Bookings:</strong> {slot.count}
-                </p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No bookings for tomorrow yet.</p>
-        )}
-      </div>
       {bookingData && (
         <div className="booking-deets">
           <h3>Your Booking Details:</h3>
@@ -257,8 +240,26 @@ const BookingPage = () => {
           </p>
         </div>
       )}
-      <div className="chart-container" style={{ width: "50%", height: "50%" }}>
-        <h3>Bookings for Tomorrow:</h3>
+      <div className="booking-deets">
+        <h3>Total Timeslots booked for Tomorrow:</h3>
+        {tomorrowSlots.length > 0 ? (
+          <ul>
+            {tomorrowSlots.map((slot, index) => (
+              <li key={index}>
+                <p>
+                  <strong>Time Slot:</strong> {slot.time} <br />
+                  <strong>Number of Bookings:</strong> {slot.count}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No bookings for tomorrow yet.</p>
+        )}
+      </div>
+     
+      <div className="chart-container" >
+        <h3>Pie Chart representation:</h3>
         <Pie data={pieData} />
       </div>
     </div>

@@ -1,0 +1,63 @@
+.personlist {
+    position: absolute;
+    top: 168px;
+    left: 68px;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: fit-content;
+    margin: auto;
+}
+
+.personlist ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.personlist li {
+    font-size: 16px;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #333;
+}
+
+.personlist li:hover {
+    background-color: #333;
+}
+
+.personlist li span {
+    font-weight: bold;
+    color: #ffdd57;
+    margin-right: 5px;
+}
+
+.personlist li::before {
+    content: '•';
+    color: #ffdd57;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.person {
+    background-color: #161616;
+    height: 100%;
+    padding: 30px;
+}
+
+.person h2 {
+    font-size: 1.8rem;
+    color: #ffdd57;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+.pie {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}

@@ -4,7 +4,7 @@
     padding: 20px;
 }
 
-.booking{ 
+.booking { 
     gap: 10px;
     display: flex;
     flex-direction: row;
@@ -29,7 +29,6 @@
 
 .booking button:hover {
     background-color: #454300;
-    
 }
 
 .booking button:active {
@@ -66,6 +65,7 @@
     padding: 20px;
     margin-top: 10px;
     background-color: rgb(41, 41, 41);
+    background-color: rgb(41, 41, 41);
     border: 1px solid #000;
     border-radius: 10px;
 }
@@ -75,4 +75,10 @@
     font-size: 1.5rem;
     color: #fff;
 
+}
+
+.chart-container {
+    width: 40%;
+    height: 50%;
+    margin-left: 25%;
 }
