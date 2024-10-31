@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import { account } from "../helpers/appwrite.ts"; // Import account from Appwrite
 import Adminpic from "../assets/images/Adminrole.png";
 
-
 const HomePage: React.FC = () => {
   const navigate = useNavigate(); // Initialize useNavigate for routing
 
@@ -25,6 +24,7 @@ const HomePage: React.FC = () => {
         const session = await account.getSession(sessionId);
 
         console.log("Session valid:", session);
+        navigate("/userhome");
       } else {
         console.log("No active session found");
         navigate("/");
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
       <AppBar is_for_user={false} />
 
       {/* Hero Section with animated image */}
-      
+
       <div className="admin" onClick={() => navigate("/loginadmin")}>
         <img src={Adminpic} alt="hero" />
       </div>
